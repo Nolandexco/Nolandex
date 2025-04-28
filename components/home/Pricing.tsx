@@ -4,16 +4,14 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Divider,
   Link,
   Spacer,
 } from "@nextui-org/react";
+import { siteConfig } from "@/config/site";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
-import { siteConfig } from "@/config/site";
-import { ALL_TIERS } from "@/config/tiers";
 import { useState } from "react";
 
 const Pricing = ({
@@ -25,20 +23,68 @@ const Pricing = ({
   locale: any;
   langName: string;
 }) => {
-  const TIERS = ALL_TIERS[`TIERS_${langName.toUpperCase()}`];
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const TIERS = [
+    {
+      key: "basic",
+      title: "Basic",
+      description:
+        "Lorem ipsum dolor sit amet, amet consectetur adipiscing elit. Et nibh.",
+      price: "$9.00 USDT",
+      features: [
+        "Trading up to $100k per month",
+        "Send and receive over 85 tokens",
+        "Real time crypto trading",
+        "iOS and Android app",
+      ],
+      buttonText: "Buy Now",
+      buttonColor: "primary",
+      href: "#",
+    },
+    {
+      key: "pro",
+      title: "Pro",
+      description:
+        "Lorem ipsum dolor sit amet, amet consectetur adipiscing elit. Et nibh.",
+      price: "$18.00 USDT",
+      features: [
+        "Everything included in Basic",
+        "Trading up to $1MM per month",
+        "Windows & macOS app",
+        "Premium support",
+      ],
+      buttonText: "Buy Now",
+      buttonColor: "primary",
+      href: "#",
+    },
+    {
+      key: "expert",
+      title: "Expert",
+      description:
+        "Lorem ipsum dolor sit amet, amet consectetur adipiscing elit. Et nibh.",
+      price: "$99.00 USDT",
+      features: [
+        "Everything included in Pro",
+        "Trading up to $10MM per month",
+        "Windows & macOS app",
+        "Dedicated support",
+      ],
+      buttonText: "Buy Now",
+      buttonColor: "primary",
+      href: "#",
+    },
+  ];
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === TIERS.length - 1 ? 0 : prevIndex + 1
-    );
+  const [currentTierIndex, setCurrentTierIndex] = useState(0);
+
+  const handleSwipeLeft = () => {
+    setCurrentTierIndex((prev) => (prev < TIERS.length - 1 ? prev + 1 : 0));
   };
 
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? TIERS.length - 1 : prevIndex - 1
-    );
+  const handleSwipeRight = () => {
+    setCurrentTierIndex((prev) => (prev > 0 ? prev - 1 : TIERS.length - 1));
   };
+
+  const currentTier = TIERS[currentTierIndex];
 
   return (
     <section
@@ -58,94 +104,61 @@ const Pricing = ({
         <p className="text-large text-default-500">{locale.description}</p>
       </div>
       <Spacer y={8} />
-      
-      <div className="relative w-full max-w-md">
-        <div className="overflow-hidden">
-          <div 
-            className="flex transition-transform duration-300"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {TIERS?.map((tier) => (
-              <div key={tier.key} className="w-full flex-shrink-0 px-4">
-                <Card className="p-3 w-full" shadow="md">
-                  <CardHeader className="flex flex-col items-start gap-2 pb-6">
-                    <h2 className="text-large font-medium">{tier.title}</h2>
-                    <p className="text-medium text-default-500">{tier.description}</p>
-                  </CardHeader>
-                  <Divider />
-                  <CardBody className="gap-8">
-                    <p className="flex items-baseline gap-1 pt-2">
-                      <span 
-                        className="inline bg-gradient-to-br from-foreground to-foreground-600 bg-clip-text text-2xl font-semibold leading-7 tracking-tight text-transparent"
-                        style={{ color: '#3B82F6' }}
-                      >
-                        {tier.price}
-                      </span>
-                      {typeof tier.price !== "string" ? (
-                        <span className="text-small font-medium text-default-400">
-                          {tier.price}
-                        </span>
-                      ) : null}
-                    </p>
-                    <ul className="flex flex-col gap-2">
-                      {tier.features?.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2">
-                          <FaCheck className="text-blue-500" />
-                          <p className="text-default-500">{feature}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardBody>
-                  <CardFooter>
-                    <Button
-                      fullWidth
-                      as={Link}
-                      color="primary"
-                      href={tier.href}
-                      variant="solid"
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                    >
-                      BUY NOW
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        <button 
-          onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white p-2 rounded-full shadow-md"
-          aria-label="Previous pricing option"
+      <div className="relative w-full flex justify-center">
+        <button
+          onClick={handleSwipeRight}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white text-2xl p-2 z-10"
         >
-          &lt;
+          &larr;
         </button>
-        <button 
-          onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white p-2 rounded-full shadow-md"
-          aria-label="Next pricing option"
+        <Card className="p-3 w-[90%] max-w-sm" shadow="md">
+          <CardHeader className="flex flex-col items-start gap-2 pb-6">
+            <h2 className="text-large font-medium">{currentTier.title}</h2>
+            <p className="text-medium text-default-500">
+              {currentTier.description}
+            </p>
+          </CardHeader>
+          <Divider />
+          <CardBody className="gap-8">
+            <p className="flex items-baseline gap-1 pt-2">
+              <span className="inline bg-gradient-to-br from-foreground to-foreground-600 bg-clip-text text-2xl font-semibold leading-7 tracking-tight text-transparent">
+                {currentTier.price}
+              </span>
+            </p>
+            <ul className="flex flex-col gap-2">
+              {currentTier.features?.map((feature) => (
+                <li key={feature} className="flex items-center gap-2">
+                  <FaCheck className="text-blue-500" />
+                  <p className="text-default-500">{feature}</p>
+                </li>
+              ))}
+            </ul>
+          </CardBody>
+          <CardFooter>
+            <Button
+              fullWidth
+              as={Link}
+              style={{ backgroundColor: "#3B82F6" }}
+              href={currentTier.href}
+              variant="solid"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              {currentTier.buttonText}
+            </Button>
+          </CardFooter>
+        </Card>
+        <button
+          onClick={handleSwipeLeft}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 text-white text-2xl p-2 z-10"
         >
-          &gt;
+          &rarr;
         </button>
-        
-        <div className="flex justify-center mt-4 gap-2">
-          {TIERS?.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full ${currentIndex === index ? 'bg-blue-500' : 'bg-gray-300'}`}
-              aria-label={`Go to pricing option ${index + 1}`}
-            />
-          ))}
-        </div>
       </div>
-      
       <Spacer y={12} />
       <div className="flex py-2">
         <p className="text-default-400 text-center">
-          {locale.doYouLike}&nbsp;
+          {locale.doYouLike} 
           <Link
             color="foreground"
             href={siteConfig.authors[0].twitter}
