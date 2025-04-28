@@ -28,15 +28,24 @@ interface PricingProps {
   langName: string;
 }
 
+type ButtonVariant =
+  | "solid"
+  | "bordered"
+  | "flat"
+  | "faded"
+  | "light"
+  | "shadow"
+  | "ghost";
+
 interface Tier {
   key: string;
   title: string;
-  description?: string; // <= di sini sekarang optional
+  description?: string;
   price: string;
   features: string[];
   buttonText: string;
   buttonColor: string;
-  buttonVariant: string;
+  buttonVariant: ButtonVariant; // <- Sekarang variant TYPENYA FIX
   href: string;
 }
 
@@ -66,12 +75,12 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 justify-items-center">
         {TIERS.length > 0 ? (
-          TIERS.map((tier, index) => (
+          TIERS.map((tier) => (
             <Card
               key={tier.key}
-              className={`p-6 flex-1 w-[90%] transition-all duration-300 hover:scale-105 hover:shadow-2xl group`}
+              className="p-6 flex-1 w-[90%] transition-all duration-300 hover:scale-105 hover:shadow-2xl group"
               style={{
-                background: "#1E3A8A", // <- background dark blue
+                background: "#1E3A8A",
                 borderRadius: "16px",
               }}
             >
@@ -107,7 +116,7 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
                   as={Link}
                   color="primary"
                   href={tier.href}
-                  variant={tier.buttonVariant}
+                  variant={tier.buttonVariant ?? "solid"} // <= fallback ke "solid" kalau undefined
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                   className="transition-all duration-300 hover:shadow-lg"
