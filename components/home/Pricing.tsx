@@ -12,11 +12,11 @@ import {
 } from "@nextui-org/react";
 
 import { siteConfig } from "@/config/site";
-import { ALL_TIERS } from "@/config/tiers";
+import { ALL_TIERS, Tier } from "@/config/tiers"; // Import Tier type from config/tiers
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
 
-// Define types for props and tiers
+// Define types for props
 interface PricingProps {
   id: string;
   locale: {
@@ -25,18 +25,6 @@ interface PricingProps {
     description: string;
   };
   langName: string;
-}
-
-interface Tier {
-  key: string;
-  title: string;
-  description: string;
-  price: string;
-  features: string[];
-  buttonText: string;
-  buttonColor: string;
-  buttonVariant: string;
-  href: string;
 }
 
 const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
