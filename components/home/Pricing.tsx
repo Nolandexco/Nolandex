@@ -142,4 +142,14 @@ const Pricing = ({
       <style jsx>{`
         .price-on-hover .price-hidden {
           opacity: 0;
-          transition: opacity 0.3s ease-in-out
+          transition: opacity 0.3s ease-in-out;
+        }
+        .price-on-hover:hover .price-hidden {
+          opacity: 1;
+        }
+      `}</style>
+    </section>
+  );
+};
+
+export default Pricing;
