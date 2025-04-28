@@ -15,7 +15,6 @@ import { ALL_TIERS } from "@/config/tiers";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
 
-// Define types for props and tiers
 interface PricingProps {
   id: string;
   locale: {
@@ -28,15 +27,6 @@ interface PricingProps {
   langName: string;
 }
 
-type ButtonVariant =
-  | "solid"
-  | "bordered"
-  | "flat"
-  | "faded"
-  | "light"
-  | "shadow"
-  | "ghost";
-
 interface Tier {
   key: string;
   title: string;
@@ -45,7 +35,7 @@ interface Tier {
   features: string[];
   buttonText: string;
   buttonColor: string;
-  buttonVariant: ButtonVariant; // <- Sekarang variant TYPENYA FIX
+  buttonVariant: string;
   href: string;
 }
 
@@ -80,8 +70,8 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
               key={tier.key}
               className="p-6 flex-1 w-[90%] transition-all duration-300 hover:scale-105 hover:shadow-2xl group"
               style={{
-                background: "#1E3A8A",
-                borderRadius: "16px",
+                background: "#121212", // <= hitam ke abu-abu gelap
+                borderRadius: "18px",   // <= sudut lebih kerucut modern
               }}
             >
               <CardHeader className="flex flex-col items-start gap-3 pb-6">
@@ -91,20 +81,20 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
                 )}
               </CardHeader>
 
-              <Divider className="bg-gray-600" />
+              <Divider className="bg-gray-700" />
 
               <CardBody className="gap-8">
                 <p className="flex items-baseline gap-1 pt-2">
-                  <span className="text-3xl font-bold leading-7 tracking-tight text-white">
+                  <span className="text-3xl font-extrabold leading-7 tracking-tight text-white">
                     {tier.price}
                   </span>
                 </p>
 
                 <ul className="flex flex-col gap-2">
-                  {tier.features?.map((feature) => (
+                  {tier.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2">
                       <FaCheck className="text-blue-400" />
-                      <p className="text-gray-200">{feature}</p>
+                      <p className="text-gray-300">{feature}</p>
                     </li>
                   ))}
                 </ul>
@@ -116,13 +106,15 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
                   as={Link}
                   color="primary"
                   href={tier.href}
-                  variant={tier.buttonVariant ?? "solid"} // <= fallback ke "solid" kalau undefined
+                  variant={tier.buttonVariant as any}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                   className="transition-all duration-300 hover:shadow-lg"
                   style={{
+                    borderRadius: "12px", // <= button lebih kerucut, elegan
+                    fontWeight: "600",
                     boxShadow:
-                      "0 4px 15px rgba(59, 130, 246, 0.3), 0 2px 6px rgba(59, 130, 246, 0.2)",
+                      "0 4px 15px rgba(59, 130, 246, 0.25), 0 2px 6px rgba(59, 130, 246, 0.15)",
                   }}
                 >
                   {tier.buttonText}
