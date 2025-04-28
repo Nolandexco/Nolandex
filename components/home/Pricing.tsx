@@ -52,21 +52,21 @@ const Pricing = ({
             style={{
               boxShadow: "0 8px 30px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.1)",
               borderRadius: "12px",
-              background: "linear-gradient(145deg, #ffffff, #f0f0f0)", // Efek conical dengan gradasi
+              background: "#111827", // Warna abu-abu gelap
             }}
           >
             <CardHeader className="flex flex-col items-start gap-2 pb-6">
-              <h2 className="text-large font-medium">{tier.title}</h2>
-              <p className="text-medium text-default-500">{tier.description}</p>
+              <h2 className="text-large font-medium text-white">{tier.title}</h2>
+              <p className="text-medium text-gray-200">{tier.description}</p>
             </CardHeader>
-            <Divider />
+            <Divider className="bg-gray-400" />
             <CardBody className="gap-8">
               <p className="flex items-baseline gap-1 pt-2">
-                <span className="inline bg-gradient-to-br from-foreground to-foreground-600 bg-clip-text text-2xl font-semibold leading-7 tracking-tight text-transparent">
+                <span className="inline bg-gradient-to-br from-yellow-400 to-orange-500 bg-clip-text text-2xl font-semibold leading-7 tracking-tight text-transparent">
                   {tier.price}
                 </span>
                 {typeof tier.price !== "string" ? (
-                  <span className="text-small font-medium text-default-400">
+                  <span className="text-small font-medium text-gray-200">
                     {tier.price}
                   </span>
                 ) : null}
@@ -74,8 +74,8 @@ const Pricing = ({
               <ul className="flex flex-col gap-2">
                 {tier.features?.map((feature) => (
                   <li key={feature} className="flex items-center gap-2">
-                    <FaCheck className="text-blue-500" />
-                    <p className="text-default-500">{feature}</p>
+                    <FaCheck className="text-blue-400" />
+                    <p className="text-gray-200">{feature}</p>
                   </li>
                 ))}
               </ul>
