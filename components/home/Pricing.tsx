@@ -4,245 +4,137 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
-  Divider,
   Spacer,
 } from "@nextui-org/react";
+import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
-// Define the props interface to ensure type safety
-interface PricingProps {
+const PRICING_LIST = [
+  {
+    title: "Basic",
+    price: "$9.00 USD",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    features: [
+      "Trading up to $100k per month",
+      "Send and receive over 85 tokens",
+      "Real time crypto trading",
+      "iOS and Android App",
+    ],
+  },
+  {
+    title: "Pro",
+    price: "$18.00 USD",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    features: [
+      "Everything included in Basic",
+      "Trading up to $1MM per month",
+      "Windows & macOS App",
+      "Premium Support",
+    ],
+  },
+  {
+    title: "Expert",
+    price: "$99.00 USD",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    features: [
+      "Everything included in Pro",
+      "Trading up to $10MM per month",
+      "Windows & macOS App",
+      "Dedicated Support",
+    ],
+  },
+];
+
+const Pricing = ({
+  id,
+  locale,
+  langName,
+}: {
   id: string;
   locale: any;
   langName: string;
-}
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
-  const [showPricing, setShowPricing] = useState(false);
-
-  const TIERS = [
-    {
-      key: "basic",
-      title: "BASIC",
-      description: "Lorem ipsum dolor sit amet, omet consectetur adipiscing elit.",
-      price: "$9.00 USD",
-      features: [
-        "Trading up to $100K per month",
-        "Send and receive over 85 tokens",
-        "Real time crypto trading",
-        "iOS and Android App",
-      ],
-      buttonText: "BUY NOW",
-      buttonColor: "primary",
-      buttonVariant: "solid",
-      href: "#",
-    },
-    {
-      key: "pro",
-      title: "PRO",
-      description: "Lorem ipsum dolor sit amet, omet consectetur adipiscing elit.",
-      price: "$18.00 USD",
-      features: [
-        "Everything included in Basic",
-        "Trading up to $1M per month",
-        "Windows & macOS App",
-        "Premium Support",
-      ],
-      buttonText: "BUY NOW",
-      buttonColor: "primary",
-      buttonVariant: "solid",
-      href: "#",
-    },
-    {
-      key: "expert",
-      title: "EXPERT",
-      description: "Lorem ipsum dolor sit amet, omet consectetur adipiscing elit.",
-      price: "$99.00 USD",
-      features: [
-        "Everything included in Pro",
-        "Trading up to $10M per month",
-        "Windows & macOS App",
-        "Dedicated Support",
-      ],
-      buttonText: "BUY NOW",
-      buttonColor: "primary",
-      buttonVariant: "solid",
-      href: "#",
-    },
-  ];
-
-  const COMBINED_TIER = {
-    key: "combined",
-    title: "PREMIUM + EXPERT BUNDLE",
-    description: "Get the best of both Pro and Expert plans in one package!",
-    price: "$108.00 USD",
-    features: [
-      "Everything in Pro & Expert",
-      "Unlimited Trading Volume",
-      "Exclusive VIP Support",
-      "Early Access to New Features",
-    ],
-    buttonText: "BUY NOW",
-    buttonColor: "primary",
-    buttonVariant: "solid",
-    href: "#",
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + PRICING_LIST.length) % PRICING_LIST.length);
   };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % PRICING_LIST.length);
+  };
+
+  const currentTier = PRICING_LIST[currentIndex];
 
   return (
     <section
       id={id}
-      className="flex flex-col justify-center items-center pt-16 bg-gradient-to-b from-[#1E1E2F] to-[#2A2A40] text-white min-h-screen"
+      className="flex flex-col justify-center items-center pt-16"
     >
       <div className="flex flex-col text-center max-w-xl">
-        <h2 className="text-4xl font-bold tracking-tight">
-          <RoughNotation type="highlight" show={true} color="#3B82F6">
-            PRICING
+        <h2 className="text-center text-white">
+          <RoughNotation type="highlight" show={true} color="#2563EB">
+            {locale.title}
           </RoughNotation>
         </h2>
+        <h3 className="text-4xl font-medium tracking-tight mt-2">
+          {locale.title2}
+        </h3>
         <Spacer y={4} />
-        <p className="text-lg text-gray-400">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Faucibus
-          nulla suspendisse tortor aenean dis placerat. Sollicitudin eu
-        </p>
+        <p className="text-large text-default-500">{locale.description}</p>
       </div>
       <Spacer y={8} />
 
-      {/* Toggle Button for Price List */}
-      <motion.div
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <Button
-          onPress={() => setShowPricing(!showPricing)} // Changed onClick to onPress for NextUI compatibility
-          className="bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-        >
-          {showPricing ? "Hide Pricing Plans" : "Discover Our Plans"}
-        </Button>
-      </motion.div>
-
-      <Spacer y={8} />
-
-      {/* Animated Price List */}
-      <AnimatePresence>
-        {showPricing && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl px-4"
-          >
-            {TIERS.map((tier) => (
-              <motion.div
-                key={tier.key}
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)" }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card
-                  className="p-4 flex-1 bg-gradient-to-br from-[#2A2A40] to-[#3B3F5A] border border-[#3B82F6]/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
-                  shadow="none"
-                >
-                  <CardHeader className="flex flex-col items-start gap-2 pb-4">
-                    <h2 className="text-xl font-semibold text-white">{tier.title}</h2>
-                    <p className="text-sm text-gray-400">{tier.description}</p>
-                  </CardHeader>
-                  <Divider className="bg-gray-600" />
-                  <CardBody className="gap-6">
-                    <p className="flex items-baseline gap-1 pt-2">
-                      <span className="text-3xl font-bold text-white">
-                        {tier.price}
-                      </span>
-                    </p>
-                    <ul className="flex flex-col gap-3">
-                      {tier.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2">
-                          <FaCheck className="text-[#3B82F6]" />
-                          <p className="text-gray-300">{feature}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardBody>
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button
-                      fullWidth
-                      color="primary"
-                      href={tier.href}
-                      variant="solid"
-                      className="bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] text-white rounded-full py-3 font-semibold hover:bg-[#2563EB] transition-colors"
-                    >
-                      {tier.buttonText}
-                    </Button>
-                  </motion.div>
-                </Card>
-              </motion.div>
+      <Card className="w-[90%] max-w-md bg-gradient-to-b from-[#1E1B4B] to-[#111827] border border-[#3B82F6] text-white">
+        <CardHeader className="flex flex-col items-center gap-2 pb-6">
+          <h2 className="text-2xl font-semibold">{currentTier.title}</h2>
+          <p className="text-medium text-default-400 text-center">{currentTier.description}</p>
+        </CardHeader>
+        <CardBody className="flex flex-col items-center gap-6">
+          <p className="text-4xl font-bold text-[#3B82F6]">{currentTier.price}</p>
+          <ul className="flex flex-col gap-3">
+            {currentTier.features.map((feature, idx) => (
+              <li key={idx} className="flex items-center gap-2">
+                <FaCheck className="text-[#3B82F6]" />
+                <span className="text-default-400">{feature}</span>
+              </li>
             ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <Spacer y={12} />
-
-      {/* Combined Price List (Pro + Expert) */}
-      <AnimatePresence>
-        {showPricing && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-            className="w-full max-w-5xl px-4"
+          </ul>
+        </CardBody>
+        <CardFooter className="flex justify-between gap-4">
+          <Button
+            onClick={handlePrev}
+            className="bg-[#3B82F6] text-white font-semibold"
+            fullWidth
           >
-            <motion.div
-              whileHover={{ scale: 1.02, boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)" }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card
-                className="p-4 bg-gradient-to-br from-[#3B3F5A] to-[#4B4F70] border border-[#3B82F6]/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
-                shadow="none"
-              >
-                <CardHeader className="flex flex-col items-start gap-2 pb-4">
-                  <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] bg-clip-text text-transparent">
-                    {COMBINED_TIER.title}
-                  </h2>
-                  <p className="text-sm text-gray-400">{COMBINED_TIER.description}</p>
-                </CardHeader>
-                <Divider className="bg-gray-600" />
-                <CardBody className="gap-6">
-                  <p className="flex items-baseline gap-1 pt-2">
-                    <span className="text-4xl font-bold text-white">
-                      {COMBINED_TIER.price}
-                    </span>
-                  </p>
-                  <ul className="flex flex-col gap-3">
-                    {COMBINED_TIER.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2">
-                        <FaCheck className="text-[#3B82F6]" />
-                        <p className="text-gray-300">{feature}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </CardBody>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button
-                    fullWidth
-                    color="primary"
-                    href={COMBINED_TIER.href}
-                    variant="solid"
-                    className="bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] text-white rounded-full py-3 font-semibold hover:bg-[#2563EB] transition-colors"
-                  >
-                    {COMBINED_TIER.buttonText}
-                  </Button>
-                </motion.div>
-              </Card>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            Previous
+          </Button>
+          <Button
+            onClick={handleNext}
+            className="bg-[#3B82F6] text-white font-semibold"
+            fullWidth
+          >
+            Next
+          </Button>
+        </CardFooter>
+      </Card>
 
       <Spacer y={12} />
+      <div className="flex py-2">
+        <p className="text-default-400 text-center">
+          {locale.doYouLike}&nbsp;
+          <a
+            className="text-[#3B82F6] underline"
+            href="#"
+            rel="noopener noreferrer nofollow"
+          >
+            {locale.follow}
+          </a>
+        </p>
+      </div>
     </section>
   );
 };
