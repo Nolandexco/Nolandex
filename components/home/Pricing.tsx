@@ -54,26 +54,30 @@ const Pricing = ({
   const activePricing = PRICING[activeIndex];
 
   return (
-    <section id={id} className="min-h-screen bg-[#0F172A] flex flex-col items-center py-20 px-6 text-white">
-      <div className="text-center mb-10">
-        <h2 className="text-white text-lg font-semibold uppercase tracking-wide">
+    <section id={id} className="min-h-screen bg-[#1E3A8A] flex flex-col items-center py-20 px-6 text-white">
+      <div className="text-center mb-16">
+        <h2 className="text-[#60A5FA] text-2xl font-semibold uppercase tracking-wider mb-4">
           <RoughNotation type="highlight" show={true} color="#2563EB">
             {locale.title}
           </RoughNotation>
         </h2>
-        <h1 className="text-4xl sm:text-5xl font-bold mt-2">{locale.title2}</h1>
-        <p className="text-default-400 text-base mt-4">{locale.description}</p>
+        <h1 className="text-6xl sm:text-7xl font-extrabold leading-tight">
+          {locale.title2}
+        </h1>
+        <p className="text-default-400 text-xl mt-6">{locale.description}</p>
       </div>
 
       {/* Toggle Buttons */}
-      <div className="flex gap-4 mb-8">
+      <div className="flex gap-6 mb-12">
         {PRICING.map((item, index) => (
           <Button
             key={index}
-            size="sm"
+            size="md"
             onClick={() => setActiveIndex(index)}
-            className={`font-semibold px-4 py-2 rounded-full transition-all ${
-              activeIndex === index ? "bg-[#3B82F6] text-white" : "bg-[#1E293B] text-default-400"
+            className={`font-semibold px-6 py-3 rounded-full text-lg transition-all ${
+              activeIndex === index
+                ? "bg-[#3B82F6] text-white"
+                : "bg-[#334155] text-default-400 hover:bg-[#475569]"
             }`}
           >
             {item.title}
@@ -82,19 +86,28 @@ const Pricing = ({
       </div>
 
       {/* Pricing Card */}
-      <div className="w-full max-w-md bg-[#1E293B] border border-[#3B82F6] rounded-2xl shadow-lg p-8 text-center transition-all duration-500">
-        <h3 className="text-2xl font-bold mb-2">{activePricing.title}</h3>
-        <p className="text-sm text-default-400 mb-6">{activePricing.description}</p>
-        <div className="text-4xl font-bold text-[#3B82F6] mb-8">{activePricing.price}</div>
+      <div className="w-full max-w-2xl bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] rounded-3xl shadow-2xl p-12 text-center transition-all duration-500 transform hover:scale-105">
+        <h3 className="text-4xl sm:text-5xl font-extrabold mb-3">{activePricing.title}</h3>
+        <p className="text-lg text-white/80 mb-8">{activePricing.description}</p>
+        <div className="text-5xl font-extrabold text-white mb-10">{activePricing.price}</div>
 
-        <ul className="space-y-4 text-left">
+        <div className="flex flex-col gap-5 items-start px-8">
           {activePricing.features.map((feature, i) => (
-            <li key={i} className="flex items-center gap-3">
-              <FaCheck className="text-[#3B82F6]" />
-              <span className="text-default-400">{feature}</span>
-            </li>
+            <div key={i} className="flex items-center gap-4">
+              <div className="bg-white/20 p-2 rounded-full">
+                <FaCheck className="text-white" />
+              </div>
+              <span className="text-white text-lg">{feature}</span>
+            </div>
           ))}
-        </ul>
+        </div>
+
+        <Button
+          className="mt-12 bg-white text-[#3B82F6] font-bold py-4 px-8 rounded-full text-lg hover:bg-[#dbeafe]"
+          size="lg"
+        >
+          Get Started
+        </Button>
       </div>
     </section>
   );
