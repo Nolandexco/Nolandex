@@ -6,47 +6,15 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Divider,
+  Link,
   Spacer,
 } from "@nextui-org/react";
-import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
-
-const PRICING_LIST = [
-  {
-    title: "Basic",
-    price: "$9.00 USD",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    features: [
-      "Trading up to $100k per month",
-      "Send and receive over 85 tokens",
-      "Real time crypto trading",
-      "iOS and Android App",
-    ],
-  },
-  {
-    title: "Pro",
-    price: "$18.00 USD",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    features: [
-      "Everything included in Basic",
-      "Trading up to $1MM per month",
-      "Windows & macOS App",
-      "Premium Support",
-    ],
-  },
-  {
-    title: "Expert",
-    price: "$99.00 USD",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    features: [
-      "Everything included in Pro",
-      "Trading up to $10MM per month",
-      "Windows & macOS App",
-      "Dedicated Support",
-    ],
-  },
-];
+import { siteConfig } from "@/config/site";
+import { ALL_TIERS } from "@/config/tiers";
+import { useState } from "react";
 
 const Pricing = ({
   id,
@@ -57,22 +25,25 @@ const Pricing = ({
   locale: any;
   langName: string;
 }) => {
+  const TIERS = ALL_TIERS[`TIERS_${langName.toUpperCase()}`];
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + PRICING_LIST.length) % PRICING_LIST.length);
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === TIERS.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % PRICING_LIST.length);
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? TIERS.length - 1 : prevIndex - 1
+    );
   };
-
-  const currentTier = PRICING_LIST[currentIndex];
 
   return (
     <section
       id={id}
-      className="flex flex-col justify-center items-center pt-16"
+      className="flex flex-col justify-center max-w-4xl items-center pt-16"
     >
       <div className="flex flex-col text-center max-w-xl">
         <h2 className="text-center text-white">
@@ -87,52 +58,102 @@ const Pricing = ({
         <p className="text-large text-default-500">{locale.description}</p>
       </div>
       <Spacer y={8} />
-
-      <Card className="w-[90%] max-w-md bg-gradient-to-b from-[#1E1B4B] to-[#111827] border border-[#3B82F6] text-white">
-        <CardHeader className="flex flex-col items-center gap-2 pb-6">
-          <h2 className="text-2xl font-semibold">{currentTier.title}</h2>
-          <p className="text-medium text-default-400 text-center">{currentTier.description}</p>
-        </CardHeader>
-        <CardBody className="flex flex-col items-center gap-6">
-          <p className="text-4xl font-bold text-[#3B82F6]">{currentTier.price}</p>
-          <ul className="flex flex-col gap-3">
-            {currentTier.features.map((feature, idx) => (
-              <li key={idx} className="flex items-center gap-2">
-                <FaCheck className="text-[#3B82F6]" />
-                <span className="text-default-400">{feature}</span>
-              </li>
+      
+      <div className="relative w-full max-w-md">
+        <div className="overflow-hidden">
+          <div 
+            className="flex transition-transform duration-300"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {TIERS?.map((tier) => (
+              <div key={tier.key} className="w-full flex-shrink-0 px-4">
+                <Card className="p-3 w-full" shadow="md">
+                  <CardHeader className="flex flex-col items-start gap-2 pb-6">
+                    <h2 className="text-large font-medium">{tier.title}</h2>
+                    <p className="text-medium text-default-500">{tier.description}</p>
+                  </CardHeader>
+                  <Divider />
+                  <CardBody className="gap-8">
+                    <p className="flex items-baseline gap-1 pt-2">
+                      <span 
+                        className="inline bg-gradient-to-br from-foreground to-foreground-600 bg-clip-text text-2xl font-semibold leading-7 tracking-tight text-transparent"
+                        style={{ color: '#3B82F6' }}
+                      >
+                        {tier.price}
+                      </span>
+                      {typeof tier.price !== "string" ? (
+                        <span className="text-small font-medium text-default-400">
+                          {tier.price}
+                        </span>
+                      ) : null}
+                    </p>
+                    <ul className="flex flex-col gap-2">
+                      {tier.features?.map((feature) => (
+                        <li key={feature} className="flex items-center gap-2">
+                          <FaCheck className="text-blue-500" />
+                          <p className="text-default-500">{feature}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardBody>
+                  <CardFooter>
+                    <Button
+                      fullWidth
+                      as={Link}
+                      color="primary"
+                      href={tier.href}
+                      variant="solid"
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                    >
+                      BUY NOW
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </div>
             ))}
-          </ul>
-        </CardBody>
-        <CardFooter className="flex justify-between gap-4">
-          <Button
-            onClick={handlePrev}
-            className="bg-[#3B82F6] text-white font-semibold"
-            fullWidth
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={handleNext}
-            className="bg-[#3B82F6] text-white font-semibold"
-            fullWidth
-          >
-            Next
-          </Button>
-        </CardFooter>
-      </Card>
-
+          </div>
+        </div>
+        
+        <button 
+          onClick={prevSlide}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white p-2 rounded-full shadow-md"
+          aria-label="Previous pricing option"
+        >
+          &lt;
+        </button>
+        <button 
+          onClick={nextSlide}
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white p-2 rounded-full shadow-md"
+          aria-label="Next pricing option"
+        >
+          &gt;
+        </button>
+        
+        <div className="flex justify-center mt-4 gap-2">
+          {TIERS?.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full ${currentIndex === index ? 'bg-blue-500' : 'bg-gray-300'}`}
+              aria-label={`Go to pricing option ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+      
       <Spacer y={12} />
       <div className="flex py-2">
         <p className="text-default-400 text-center">
           {locale.doYouLike}&nbsp;
-          <a
-            className="text-[#3B82F6] underline"
-            href="#"
+          <Link
+            color="foreground"
+            href={siteConfig.authors[0].twitter}
+            underline="always"
             rel="noopener noreferrer nofollow"
           >
             {locale.follow}
-          </a>
+          </Link>
         </p>
       </div>
     </section>
