@@ -11,11 +11,11 @@ import {
   Spacer,
 } from "@nextui-org/react";
 
-import { siteConfig } from "@/config/site";
 import { ALL_TIERS } from "@/config/tiers";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
 
+// Define types for props and tiers
 interface PricingProps {
   id: string;
   locale: {
@@ -31,7 +31,7 @@ interface PricingProps {
 interface Tier {
   key: string;
   title: string;
-  description: string;
+  description?: string; // <= di sini sekarang optional
   price: string;
   features: string[];
   buttonText: string;
@@ -42,7 +42,7 @@ interface Tier {
 
 const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
   const TIERS: Tier[] =
-    ALL_TIERS[`TIERS_${langName.toUpperCase()}`] || ([] as Tier[]);
+    (ALL_TIERS[`TIERS_${langName.toUpperCase()}`] as Tier[]) || [];
 
   return (
     <section
@@ -71,45 +71,49 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
               key={tier.key}
               className={`p-6 flex-1 w-[90%] transition-all duration-300 hover:scale-105 hover:shadow-2xl group`}
               style={{
-                background: "#111827",
+                background: "#1E3A8A", // <- background dark blue
                 borderRadius: "16px",
-                boxShadow:
-                  "0 10px 30px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2)",
               }}
             >
-              <CardHeader className="flex flex-col items-start gap-2 pb-4">
+              <CardHeader className="flex flex-col items-start gap-3 pb-6">
                 <h2 className="text-2xl font-bold text-white">{tier.title}</h2>
-                <p className="text-medium text-gray-400">{tier.description}</p>
+                {tier.description && (
+                  <p className="text-base text-gray-300">{tier.description}</p>
+                )}
               </CardHeader>
+
               <Divider className="bg-gray-600" />
-              <CardBody className="gap-6 pt-4">
-                <p className="flex items-baseline gap-1">
-                  <span className="text-3xl font-extrabold leading-7 tracking-tight text-white">
+
+              <CardBody className="gap-8">
+                <p className="flex items-baseline gap-1 pt-2">
+                  <span className="text-3xl font-bold leading-7 tracking-tight text-white">
                     {tier.price}
                   </span>
                 </p>
+
                 <ul className="flex flex-col gap-2">
                   {tier.features?.map((feature) => (
                     <li key={feature} className="flex items-center gap-2">
                       <FaCheck className="text-blue-400" />
-                      <p className="text-gray-300">{feature}</p>
+                      <p className="text-gray-200">{feature}</p>
                     </li>
                   ))}
                 </ul>
               </CardBody>
+
               <CardFooter>
                 <Button
                   fullWidth
                   as={Link}
-                  href={tier.href}
                   color="primary"
+                  href={tier.href}
                   variant={tier.buttonVariant}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                   className="transition-all duration-300 hover:shadow-lg"
                   style={{
                     boxShadow:
-                      "0 4px 15px rgba(0, 112, 240, 0.3), 0 2px 6px rgba(0, 112, 240, 0.2)",
+                      "0 4px 15px rgba(59, 130, 246, 0.3), 0 2px 6px rgba(59, 130, 246, 0.2)",
                   }}
                 >
                   {tier.buttonText}
@@ -118,15 +122,13 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
             </Card>
           ))
         ) : (
-          <p className="text-center text-gray-500">
+          <p className="text-center text-gray-400">
             No pricing tiers available for this language.
           </p>
         )}
       </div>
 
       <Spacer y={12} />
-
-      {/* Removed the "Do you like..." and "Follow my Twitter" section */}
     </section>
   );
 };
