@@ -49,9 +49,7 @@ const Pricing = ({
         {TIERS?.map((tier, index) => (
           <Card
             key={tier.key}
-            className={`p-3 flex-1 w-[90%] ${
-              index === 1 ? "bg-gray-200" : "bg-black" // Abu-abu untuk kartu kedua, hitam untuk lainnya
-            }`}
+            className="p-3 flex-1 w-[90%] bg-gray-200 rounded-xl" // Abu-abu dan sudut melengkung untuk semua kartu
             shadow="md"
           >
             <CardHeader className="flex flex-col items-start gap-2 pb-6">
@@ -88,6 +86,7 @@ const Pricing = ({
                 variant={index === 1 ? TIERS[0].buttonVariant : tier.buttonVariant} // Variant tombol sama dengan kartu pertama
                 target="_blank"
                 rel="noopener noreferrer nofollow"
+                className="rounded-lg" // Tombol melengkung
               >
                 {tier.buttonText}
               </Button>
