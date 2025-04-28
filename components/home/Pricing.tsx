@@ -49,7 +49,7 @@ const Pricing = ({
         {TIERS?.map((tier, index) => (
           <Card
             key={tier.key}
-            className="p-3 flex-1 w-[90%] bg-gray-200 rounded-xl" // Abu-abu dan sudut melengkung untuk semua kartu
+            className="p-3 flex-1 w-[90%] bg-gray-600 rounded-xl" // Abu-abu elegan dan sudut melengkung
             shadow="md"
           >
             <CardHeader className="flex flex-col items-start gap-2 pb-6">
@@ -72,7 +72,7 @@ const Pricing = ({
                 {tier.features?.map((feature) => (
                   <li key={feature} className="flex items-center gap-2">
                     <FaCheck className="text-blue-500" />
-                    <p className="text-default-500">{feature}</p>
+                    <p className="text-default-500">{tier.title}</p>
                   </li>
                 ))}
               </ul>
