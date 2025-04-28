@@ -1,18 +1,45 @@
 "use client";
 
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Divider,
-  Link,
-  Spacer,
-} from "@nextui-org/react";
-import { siteConfig } from "@/config/site";
+import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
-import { useState } from "react";
+import { Button } from "@nextui-org/react";
+
+const PRICING = [
+  {
+    title: "Basic",
+    price: "$9.00 USD",
+    description: "Perfect for getting started with crypto trading.",
+    features: [
+      "Trading up to $100k per month",
+      "Send and receive over 85 tokens",
+      "Real-time crypto trading",
+      "iOS and Android App",
+    ],
+  },
+  {
+    title: "Pro",
+    price: "$18.00 USD",
+    description: "Advanced features for growing traders.",
+    features: [
+      "Everything in Basic",
+      "Trading up to $1M per month",
+      "Windows & macOS App",
+      "Premium Support",
+    ],
+  },
+  {
+    title: "Expert",
+    price: "$99.00 USD",
+    description: "For high-volume traders with premium needs.",
+    features: [
+      "Everything in Pro",
+      "Trading up to $10M per month",
+      "Windows & macOS App",
+      "Dedicated Support",
+    ],
+  },
+];
 
 const Pricing = ({
   id,
@@ -23,151 +50,51 @@ const Pricing = ({
   locale: any;
   langName: string;
 }) => {
-  const TIERS = [
-    {
-      key: "basic",
-      title: "Basic",
-      description:
-        "Lorem ipsum dolor sit amet, amet consectetur adipiscing elit. Et nibh.",
-      price: "$9.00 USDT",
-      features: [
-        "Trading up to $100k per month",
-        "Send and receive over 85 tokens",
-        "Real time crypto trading",
-        "iOS and Android app",
-      ],
-      buttonText: "Buy Now",
-      buttonColor: "primary",
-      href: "#",
-    },
-    {
-      key: "pro",
-      title: "Pro",
-      description:
-        "Lorem ipsum dolor sit amet, amet consectetur adipiscing elit. Et nibh.",
-      price: "$18.00 USDT",
-      features: [
-        "Everything included in Basic",
-        "Trading up to $1MM per month",
-        "Windows & macOS app",
-        "Premium support",
-      ],
-      buttonText: "Buy Now",
-      buttonColor: "primary",
-      href: "#",
-    },
-    {
-      key: "expert",
-      title: "Expert",
-      description:
-        "Lorem ipsum dolor sit amet, amet consectetur adipiscing elit. Et nibh.",
-      price: "$99.00 USDT",
-      features: [
-        "Everything included in Pro",
-        "Trading up to $10MM per month",
-        "Windows & macOS app",
-        "Dedicated support",
-      ],
-      buttonText: "Buy Now",
-      buttonColor: "primary",
-      href: "#",
-    },
-  ];
-
-  const [currentTierIndex, setCurrentTierIndex] = useState(0);
-
-  const handleSwipeLeft = () => {
-    setCurrentTierIndex((prev) => (prev < TIERS.length - 1 ? prev + 1 : 0));
-  };
-
-  const handleSwipeRight = () => {
-    setCurrentTierIndex((prev) => (prev > 0 ? prev - 1 : TIERS.length - 1));
-  };
-
-  const currentTier = TIERS[currentTierIndex];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activePricing = PRICING[activeIndex];
 
   return (
-    <section
-      id={id}
-      className="flex flex-col justify-center max-w-4xl items-center pt-16"
-    >
-      <div className="flex flex-col text-center max-w-xl">
-        <h2 className="text-center text-white">
+    <section id={id} className="min-h-screen bg-[#0F172A] flex flex-col items-center py-20 px-6 text-white">
+      <div className="text-center mb-10">
+        <h2 className="text-white text-lg font-semibold uppercase tracking-wide">
           <RoughNotation type="highlight" show={true} color="#2563EB">
             {locale.title}
           </RoughNotation>
         </h2>
-        <h3 className="text-4xl font-medium tracking-tight mt-2">
-          {locale.title2}
-        </h3>
-        <Spacer y={4} />
-        <p className="text-large text-default-500">{locale.description}</p>
+        <h1 className="text-4xl sm:text-5xl font-bold mt-2">{locale.title2}</h1>
+        <p className="text-default-400 text-base mt-4">{locale.description}</p>
       </div>
-      <Spacer y={8} />
-      <div className="relative w-full flex justify-center">
-        <button
-          onClick={handleSwipeRight}
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white text-2xl p-2 z-10"
-        >
-          &larr;
-        </button>
-        <Card className="p-3 w-[90%] max-w-sm" shadow="md">
-          <CardHeader className="flex flex-col items-start gap-2 pb-6">
-            <h2 className="text-large font-medium">{currentTier.title}</h2>
-            <p className="text-medium text-default-500">
-              {currentTier.description}
-            </p>
-          </CardHeader>
-          <Divider />
-          <CardBody className="gap-8">
-            <p className="flex items-baseline gap-1 pt-2">
-              <span className="inline bg-gradient-to-br from-foreground to-foreground-600 bg-clip-text text-2xl font-semibold leading-7 tracking-tight text-transparent">
-                {currentTier.price}
-              </span>
-            </p>
-            <ul className="flex flex-col gap-2">
-              {currentTier.features?.map((feature) => (
-                <li key={feature} className="flex items-center gap-2">
-                  <FaCheck className="text-blue-500" />
-                  <p className="text-default-500">{feature}</p>
-                </li>
-              ))}
-            </ul>
-          </CardBody>
-          <CardFooter>
-            <Button
-              fullWidth
-              as={Link}
-              style={{ backgroundColor: "#3B82F6" }}
-              href={currentTier.href}
-              variant="solid"
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-            >
-              {currentTier.buttonText}
-            </Button>
-          </CardFooter>
-        </Card>
-        <button
-          onClick={handleSwipeLeft}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 text-white text-2xl p-2 z-10"
-        >
-          &rarr;
-        </button>
-      </div>
-      <Spacer y={12} />
-      <div className="flex py-2">
-        <p className="text-default-400 text-center">
-          {locale.doYouLike} 
-          <Link
-            color="foreground"
-            href={siteConfig.authors[0].twitter}
-            underline="always"
-            rel="noopener noreferrer nofollow"
+
+      {/* Toggle Buttons */}
+      <div className="flex gap-4 mb-8">
+        {PRICING.map((item, index) => (
+          <Button
+            key={index}
+            size="sm"
+            onClick={() => setActiveIndex(index)}
+            className={`font-semibold px-4 py-2 rounded-full transition-all ${
+              activeIndex === index ? "bg-[#3B82F6] text-white" : "bg-[#1E293B] text-default-400"
+            }`}
           >
-            {locale.follow}
-          </Link>
-        </p>
+            {item.title}
+          </Button>
+        ))}
+      </div>
+
+      {/* Pricing Card */}
+      <div className="w-full max-w-md bg-[#1E293B] border border-[#3B82F6] rounded-2xl shadow-lg p-8 text-center transition-all duration-500">
+        <h3 className="text-2xl font-bold mb-2">{activePricing.title}</h3>
+        <p className="text-sm text-default-400 mb-6">{activePricing.description}</p>
+        <div className="text-4xl font-bold text-[#3B82F6] mb-8">{activePricing.price}</div>
+
+        <ul className="space-y-4 text-left">
+          {activePricing.features.map((feature, i) => (
+            <li key={i} className="flex items-center gap-3">
+              <FaCheck className="text-[#3B82F6]" />
+              <span className="text-default-400">{feature}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
