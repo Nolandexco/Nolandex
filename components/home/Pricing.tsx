@@ -2,10 +2,6 @@
 
 import {
   Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Divider,
   Link,
   Spacer,
@@ -32,6 +28,7 @@ const Pricing = ({
       id={id}
       className="flex flex-col justify-center max-w-4xl items-center pt-16"
     >
+      {/* Header Section */}
       <div className="flex flex-col text-center max-w-xl">
         <h2 className="text-center text-white">
           <RoughNotation type="highlight" show={true} color="#2563EB">
@@ -45,25 +42,36 @@ const Pricing = ({
         <p className="text-large text-default-500">{locale.description}</p>
       </div>
       <Spacer y={8} />
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 justify-items-center">
+
+      {/* New Pricing Cards */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 justify-items-center">
         {TIERS?.map((tier, index) => (
-          <Card
+          <div
             key={tier.key}
-            className="p-3 flex-1 w-[90%] bg-gray-600 rounded-xl" // Abu-abu elegan dan sudut melengkung
-            shadow="md"
+            style={{
+              backgroundColor: "#4B5563", // Abu-abu elegan
+              borderRadius: "12px", // Sudut melengkung
+              padding: "16px",
+              flex: 1,
+              width: "90%",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Shadow mirip NextUI
+            }}
           >
-            <CardHeader className="flex flex-col items-start gap-2 pb-6">
-              <h2 className="text-large font-medium">{tier.title}</h2>
-              <p className="text-medium text-default-500">{tier.description}</p>
-            </CardHeader>
-            <Divider />
-            <CardBody className="gap-8">
-              <p className="flex items-baseline gap-1 pt-2">
-                <span className="inline bg-gradient-to-br from-foreground to-foreground-600 bg-clip-text text-2xl font-semibold leading-7 tracking-tight text-transparent">
+            {/* Card Header */}
+            <div className="flex flex-col items-start gap-2 pb-4">
+              <h2 className="text-lg font-medium text-white">{tier.title}</h2>
+              <p className="text-base text-gray-300">{tier.description}</p>
+            </div>
+            <Divider className="bg-gray-400" />
+
+            {/* Card Body */}
+            <div className="flex flex-col gap-6 py-4">
+              <p className="flex items-baseline gap-1">
+                <span className="text-2xl font-semibold text-white">
                   {tier.price}
                 </span>
                 {typeof tier.price !== "string" ? (
-                  <span className="text-small font-medium text-default-400">
+                  <span className="text-sm font-medium text-gray-300">
                     {tier.price}
                   </span>
                 ) : null}
@@ -72,29 +80,35 @@ const Pricing = ({
                 {tier.features?.map((feature) => (
                   <li key={feature} className="flex items-center gap-2">
                     <FaCheck className="text-blue-500" />
-                    <p className="text-default-500">{tier.title}</p>
+                    <p className="text-gray-300">{feature}</p>
                   </li>
                 ))}
               </ul>
-            </CardBody>
-            <CardFooter>
+            </div>
+
+            {/* Card Footer */}
+            <div>
               <Button
                 fullWidth
                 as={Link}
-                color={index === 1 ? TIERS[0].buttonColor : tier.buttonColor} // Tombol kartu kedua sama dengan kartu pertama
+                color={index === 1 ? TIERS[0].buttonColor : tier.buttonColor} // Tombol kartu kedua sama dengan pertama
                 href={tier.href}
-                variant={index === 1 ? TIERS[0].buttonVariant : tier.buttonVariant} // Variant tombol sama dengan kartu pertama
+                variant={index === 1 ? TIERS[0].buttonVariant : tier.buttonVariant}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
-                className="rounded-lg" // Tombol melengkung
+                style={{
+                  borderRadius: "8px", // Tombol melengkung
+                }}
               >
                 {tier.buttonText}
               </Button>
-            </CardFooter>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
       <Spacer y={12} />
+
+      {/* Footer Section */}
       <div className="flex py-2">
         <p className="text-default-400 text-center">
           {locale.doYouLike} 
