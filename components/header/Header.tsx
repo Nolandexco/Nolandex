@@ -1,6 +1,6 @@
 "use client";
 import HeaderLinks from "@/components/header/HeaderLinks";
-import { LangSwitcher } from "@/components/header/LangSwitcher";
+// import { LangSwitcher } from "@/components/header/LangSwitcher"; // Hapus impor
 import { siteConfig } from "@/config/site";
 import { MenuIcon } from "lucide-react";
 import Image from "next/image";
@@ -66,7 +66,7 @@ const Header = () => {
         <div className="hidden md:flex items-center justify-end gap-x-6 flex-1">
           <HeaderLinks />
           <ThemedButton />
-          <LangSwitcher />
+          {/* <LangSwitcher /> Hapus language selector */}
         </div>
 
         {/* Mobile menu button */}
@@ -135,7 +135,7 @@ const Header = () => {
                     <HeaderLinks />
                     <div className="flex items-center justify-end gap-x-5">
                       <ThemedButton />
-                      <LangSwitcher />
+                      {/* <LangSwitcher /> Hapus language selector */}
                     </div>
                   </div>
                 </div>
