@@ -12,7 +12,7 @@ import {
   Switch,
 } from "@nextui-org/react";
 
-import { ALL_TIERS } from "@/config/tiers";
+import { ALL_TIERS, Tier as AllTiersTier } from "@/config/tiers"; // Import the Tier type from the config file
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
 import { useState } from "react";
@@ -46,7 +46,20 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
   const [isYearly, setIsYearly] = useState(false);
 
   const TIERS: Tier[] =
-    (ALL_TIERS[`TIERS_${langName.toUpperCase()}`] as Tier[]) || [];
+    (ALL_TIERS[`TIERS_${langName.toUpperCase()}`] as AllTiersTier[])?.map(
+      (tier) => ({
+        key: tier.key,
+        title: tier.title,
+        description: tier.description,
+        monthlyPrice: tier.monthlyPrice,
+        yearlyPrice: tier.yearlyPrice,
+        features: tier.features,
+        buttonText: tier.buttonText,
+        buttonColor: tier.buttonColor,
+        buttonVariant: tier.buttonVariant,
+        href: tier.href,
+      })
+    ) || [];
 
   const firstTier = TIERS[0];
 
