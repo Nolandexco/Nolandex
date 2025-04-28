@@ -10,6 +10,8 @@ import {
 } from "@nextui-org/react";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Pricing = ({
   id,
@@ -20,6 +22,8 @@ const Pricing = ({
   locale: any;
   langName: string;
 }) => {
+  const [showPricing, setShowPricing] = useState(false);
+
   const TIERS = [
     {
       key: "basic",
@@ -71,6 +75,23 @@ const Pricing = ({
     },
   ];
 
+  const COMBINED_TIER = {
+    key: "combined",
+    title: "PREMIUM + EXPERT BUNDLE",
+    description: "Get the best of both Pro and Expert plans in one package!",
+    price: "$108.00 USD",
+    features: [
+      "Everything in Pro & Expert",
+      "Unlimited Trading Volume",
+      "Exclusive VIP Support",
+      "Early Access to New Features",
+    ],
+    buttonText: "BUY NOW",
+    buttonColor: "primary",
+    buttonVariant: "solid",
+    href: "#",
+  };
+
   return (
     <section
       id={id}
@@ -89,48 +110,99 @@ const Pricing = ({
         </p>
       </div>
       <Spacer y={8} />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl px-4">
-        {TIERS.map((tier) => (
-          <Card
-            key={tier.key}
-            className="p-4 flex-1 bg-[#2A2A40] border border-[#3B82F6]/20 rounded-2xl shadow-lg"
-            shadow="none"
-          >
-            <CardHeader className="flex flex-col items-start gap-2 pb-4">
-              <h2 className="text-xl font-semibold text-white">{tier.title}</h2>
-              <p className="text-sm text-gray-400">{tier.description}</p>
-            </CardHeader>
-            <Divider className="bg-gray-600" />
-            <CardBody className="gap-6">
-              <p className="flex items-baseline gap-1 pt-2">
-                <span className="text-3xl font-bold text-white">
-                  {tier.price}
-                </span>
-              </p>
-              <ul className="flex flex-col gap-3">
-                {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2">
-                    <FaCheck className="text-[#3B82F6]" />
-                    <p className="text-gray-300">{feature}</p>
-                  </li>
-                ))}
-              </ul>
-            </CardBody>
-            <Button
-              fullWidth
-              color="primary"
-              href={tier.href}
-              variant="solid"
-              className="bg-[#3B82F6] text-white rounded-full py-3 font-semibold hover:bg-[#2563EB] transition-colors"
-            >
-              {tier.buttonText}
-            </Button>
-          </Card>
-        ))}
-      </div>
-      <Spacer y={12} />
-    </section>
-  );
-};
 
-export default Pricing;
+      {/* Toggle Button for Price List */}
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Button
+          onClick={() => setShowPricing(!showPricing)}
+          className="bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          {showPricing ? "Hide Pricing Plans" : "Discover Our Plans"}
+        </Button>
+      </motion.div>
+
+      <Spacer y={8} />
+
+      {/* Animated Price List */}
+      <AnimatePresence>
+        {showPricing && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl px-4"
+          >
+            {TIERS.map((tier) => (
+              <motion.div
+                key={tier.key}
+                whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)" }}
+                transition={{ duration: 0.3 }}
+              >
+                <Card
+                  className="p-4 flex-1 bg-gradient-to-br from-[#2A2A40] to-[#3B3F5A] border border-[#3B82F6]/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
+                  shadow="none"
+                >
+                  <CardHeader className="flex flex-col items-start gap-2 pb-4">
+                    <h2 className="text-xl font-semibold text-white">{tier.title}</h2>
+                    <p className="text-sm text-gray-400">{tier.description}</p>
+                  </CardHeader>
+                  <Divider className="bg-gray-600" />
+                  <CardBody className="gap-6">
+                    <p className="flex items-baseline gap-1 pt-2">
+                      <span className="text-3xl font-bold text-white">
+                        {tier.price}
+                      </span>
+                    </p>
+                    <ul className="flex flex-col gap-3">
+                      {tier.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-2">
+                          <FaCheck className="text-[#3B82F6]" />
+                          <p className="text-gray-300">{feature}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardBody>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button
+                      fullWidth
+                      color="primary"
+                      href={tier.href}
+                      variant="solid"
+                      className="bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] text-white rounded-full py-3 font-semibold hover:bg-[#2563EB] transition-colors"
+                    >
+                      {tier.buttonText}
+                    </Button>
+                  </motion.div>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Spacer y={12} />
+
+      {/* Combined Price List (Pro + Expert) */}
+      <AnimatePresence>
+        {showPricing && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+            className="w-full max-w-5xl px-4"
+          >
+            <motion.div
+              whileHover={{ scale: 1.02, boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)" }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card
+                className="p-4 bg-gradient-to-br from-[#3B3F5A] to-[#4B4F70] border border-[#3B82F6]/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
+                shadow="none"
+              >
+                <CardHeader className="flex flex-col items-start gap-2 pb-4">
+                  <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] bg
