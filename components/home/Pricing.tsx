@@ -9,14 +9,13 @@ import {
   Divider,
   Link,
   Spacer,
-  Switch,
 } from "@nextui-org/react";
 
-import { ALL_TIERS, Tier as AllTiersTier } from "@/config/tiers"; // Import the Tier type from the config file
+import { ALL_TIERS } from "@/config/tiers";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
-import { useState } from "react";
 
+// Define types for props and tiers
 interface PricingProps {
   id: string;
   locale: {
@@ -32,9 +31,8 @@ interface PricingProps {
 interface Tier {
   key: string;
   title: string;
-  description?: string;
-  monthlyPrice: string;
-  yearlyPrice: string;
+  description?: string; // <= di sini sekarang optional
+  price: string;
   features: string[];
   buttonText: string;
   buttonColor: string;
@@ -43,25 +41,8 @@ interface Tier {
 }
 
 const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
-  const [isYearly, setIsYearly] = useState(false);
-
   const TIERS: Tier[] =
-    (ALL_TIERS[`TIERS_${langName.toUpperCase()}`] as AllTiersTier[])?.map(
-      (tier) => ({
-        key: tier.key,
-        title: tier.title,
-        description: tier.description,
-        monthlyPrice: tier.monthlyPrice,
-        yearlyPrice: tier.yearlyPrice,
-        features: tier.features,
-        buttonText: tier.buttonText,
-        buttonColor: tier.buttonColor,
-        buttonVariant: tier.buttonVariant,
-        href: tier.href,
-      })
-    ) || [];
-
-  const firstTier = TIERS[0];
+    (ALL_TIERS[`TIERS_${langName.toUpperCase()}`] as Tier[]) || [];
 
   return (
     <section
@@ -83,27 +64,15 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
 
       <Spacer y={8} />
 
-      <Switch
-        isSelected={isYearly}
-        onValueChange={setIsYearly}
-        color="primary"
-        size="lg"
-        className="text-white"
-      >
-        {isYearly ? "Yearly Plan" : "Monthly Plan"}
-      </Switch>
-
-      <Spacer y={8} />
-
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 justify-items-center">
         {TIERS.length > 0 ? (
-          TIERS.map((tier) => (
+          TIERS.map((tier, index) => (
             <Card
               key={tier.key}
-              className="p-6 flex-1 w-[90%] transition-all duration-300 hover:scale-105 hover:shadow-2xl group"
+              className={`p-6 flex-1 w-[90%] transition-all duration-300 hover:scale-105 hover:shadow-2xl group`}
               style={{
-                background: "#121212",
-                borderRadius: "18px",
+                background: "#1E3A8A", // <- background dark blue
+                borderRadius: "16px",
               }}
             >
               <CardHeader className="flex flex-col items-start gap-3 pb-6">
@@ -113,23 +82,20 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
                 )}
               </CardHeader>
 
-              <Divider className="bg-gray-700" />
+              <Divider className="bg-gray-600" />
 
               <CardBody className="gap-8">
                 <p className="flex items-baseline gap-1 pt-2">
-                  <span className="text-3xl font-extrabold leading-7 tracking-tight text-white">
-                    {isYearly ? tier.yearlyPrice : tier.monthlyPrice}
+                  <span className="text-3xl font-bold leading-7 tracking-tight text-white">
+                    {tier.price}
                   </span>
-                  {isYearly && (
-                    <span className="ml-2 text-sm text-gray-400">(Billed yearly)</span>
-                  )}
                 </p>
 
-                <ul className="flex flex-col gap-2 mt-4">
-                  {tier.features.map((feature) => (
+                <ul className="flex flex-col gap-2">
+                  {tier.features?.map((feature) => (
                     <li key={feature} className="flex items-center gap-2">
                       <FaCheck className="text-blue-400" />
-                      <p className="text-gray-300">{feature}</p>
+                      <p className="text-gray-200">{feature}</p>
                     </li>
                   ))}
                 </ul>
@@ -139,17 +105,15 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
                 <Button
                   fullWidth
                   as={Link}
-                  color={firstTier?.buttonColor as any}
-                  variant={firstTier?.buttonVariant as any}
+                  color="primary"
                   href={tier.href}
+                  variant={tier.buttonVariant}
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                   className="transition-all duration-300 hover:shadow-lg"
                   style={{
-                    borderRadius: "12px",
-                    fontWeight: "600",
                     boxShadow:
-                      "0 4px 15px rgba(59, 130, 246, 0.25), 0 2px 6px rgba(59, 130, 246, 0.15)",
+                      "0 4px 15px rgba(59, 130, 246, 0.3), 0 2px 6px rgba(59, 130, 246, 0.2)",
                   }}
                 >
                   {tier.buttonText}
