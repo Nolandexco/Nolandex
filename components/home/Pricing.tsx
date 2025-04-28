@@ -11,38 +11,21 @@ import {
   Spacer,
 } from "@nextui-org/react";
 
+import { siteConfig } from "@/config/site";
 import { ALL_TIERS } from "@/config/tiers";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
 
-// Define types for props and tiers
-interface PricingProps {
+const Pricing = ({
+  id,
+  locale,
+  langName,
+}: {
   id: string;
-  locale: {
-    title: string;
-    title2: string;
-    description: string;
-    doYouLike: string;
-    follow: string;
-  };
+  locale: any;
   langName: string;
-}
-
-interface Tier {
-  key: string;
-  title: string;
-  description?: string; // <= di sini sekarang optional
-  price: string;
-  features: string[];
-  buttonText: string;
-  buttonColor: string;
-  buttonVariant: string;
-  href: string;
-}
-
-const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
-  const TIERS: Tier[] =
-    (ALL_TIERS[`TIERS_${langName.toUpperCase()}`] as Tier[]) || [];
+}) => {
+  const TIERS = ALL_TIERS[`TIERS_${langName.toUpperCase()}`];
 
   return (
     <section
@@ -55,80 +38,77 @@ const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
             {locale.title}
           </RoughNotation>
         </h2>
-        <h3 className="text-4xl font-medium tracking-tight mt-2 text-white">
+        <h3 className="text-4xl font-medium tracking-tight mt-2">
           {locale.title2}
         </h3>
         <Spacer y={4} />
-        <p className="text-large text-gray-400">{locale.description}</p>
+        <p className="text-large text-default-500">{locale.description}</p>
       </div>
-
       <Spacer y={8} />
-
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 justify-items-center">
-        {TIERS.length > 0 ? (
-          TIERS.map((tier, index) => (
-            <Card
-              key={tier.key}
-              className={`p-6 flex-1 w-[90%] transition-all duration-300 hover:scale-105 hover:shadow-2xl group`}
-              style={{
-                background: "#1E3A8A", // <- background dark blue
-                borderRadius: "16px",
-              }}
-            >
-              <CardHeader className="flex flex-col items-start gap-3 pb-6">
-                <h2 className="text-2xl font-bold text-white">{tier.title}</h2>
-                {tier.description && (
-                  <p className="text-base text-gray-300">{tier.description}</p>
-                )}
-              </CardHeader>
-
-              <Divider className="bg-gray-600" />
-
-              <CardBody className="gap-8">
-                <p className="flex items-baseline gap-1 pt-2">
-                  <span className="text-3xl font-bold leading-7 tracking-tight text-white">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 justify-items-center">
+        {TIERS?.map((tier, index) => (
+          <Card
+            key={tier.key}
+            className={`p-3 flex-1 w-[90%] ${
+              index === 1 ? "bg-gray-200" : "bg-black" // Abu-abu untuk kartu kedua, hitam untuk lainnya
+            }`}
+            shadow="md"
+          >
+            <CardHeader className="flex flex-col items-start gap-2 pb-6">
+              <h2 className="text-large font-medium">{tier.title}</h2>
+              <p className="text-medium text-default-500">{tier.description}</p>
+            </CardHeader>
+            <Divider />
+            <CardBody className="gap-8">
+              <p className="flex items-baseline gap-1 pt-2">
+                <span className="inline bg-gradient-to-br from-foreground to-foreground-600 bg-clip-text text-2xl font-semibold leading-7 tracking-tight text-transparent">
+                  {tier.price}
+                </span>
+                {typeof tier.price !== "string" ? (
+                  <span className="text-small font-medium text-default-400">
                     {tier.price}
                   </span>
-                </p>
-
-                <ul className="flex flex-col gap-2">
-                  {tier.features?.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2">
-                      <FaCheck className="text-blue-400" />
-                      <p className="text-gray-200">{feature}</p>
-                    </li>
-                  ))}
-                </ul>
-              </CardBody>
-
-              <CardFooter>
-                <Button
-                  fullWidth
-                  as={Link}
-                  color="primary"
-                  href={tier.href}
-                  variant={tier.buttonVariant}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className="transition-all duration-300 hover:shadow-lg"
-                  style={{
-                    boxShadow:
-                      "0 4px 15px rgba(59, 130, 246, 0.3), 0 2px 6px rgba(59, 130, 246, 0.2)",
-                  }}
-                >
-                  {tier.buttonText}
-                </Button>
-              </CardFooter>
-            </Card>
-          ))
-        ) : (
-          <p className="text-center text-gray-400">
-            No pricing tiers available for this language.
-          </p>
-        )}
+                ) : null}
+              </p>
+              <ul className="flex flex-col gap-2">
+                {tier.features?.map((feature) => (
+                  <li key={feature} className="flex items-center gap-2">
+                    <FaCheck className="text-blue-500" />
+                    <p className="text-default-500">{feature}</p>
+                  </li>
+                ))}
+              </ul>
+            </CardBody>
+            <CardFooter>
+              <Button
+                fullWidth
+                as={Link}
+                color={index === 1 ? TIERS[0].buttonColor : tier.buttonColor} // Tombol kartu kedua sama dengan kartu pertama
+                href={tier.href}
+                variant={index === 1 ? TIERS[0].buttonVariant : tier.buttonVariant} // Variant tombol sama dengan kartu pertama
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+              >
+                {tier.buttonText}
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
-
       <Spacer y={12} />
+      <div className="flex py-2">
+        <p className="text-default-400 text-center">
+          {locale.doYouLike} 
+          <Link
+            color="foreground"
+            href={siteConfig.authors[0].twitter}
+            underline="always"
+            rel="noopener noreferrer nofollow"
+          >
+            {locale.follow}
+          </Link>
+        </p>
+      </div>
     </section>
   );
 };
