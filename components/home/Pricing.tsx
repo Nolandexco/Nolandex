@@ -13,15 +13,14 @@ import { RoughNotation } from "react-rough-notation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Pricing = ({
-  id,
-  locale,
-  langName,
-}: {
+// Define the props interface to ensure type safety
+interface PricingProps {
   id: string;
   locale: any;
   langName: string;
-}) => {
+}
+
+const Pricing: React.FC<PricingProps> = ({ id, locale, langName }) => {
   const [showPricing, setShowPricing] = useState(false);
 
   const TIERS = [
@@ -117,7 +116,7 @@ const Pricing = ({
         whileTap={{ scale: 0.95 }}
       >
         <Button
-          onClick={() => setShowPricing(!showPricing)}
+          onPress={() => setShowPricing(!showPricing)} // Changed onClick to onPress for NextUI compatibility
           className="bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
         >
           {showPricing ? "Hide Pricing Plans" : "Discover Our Plans"}
@@ -205,4 +204,47 @@ const Pricing = ({
                 shadow="none"
               >
                 <CardHeader className="flex flex-col items-start gap-2 pb-4">
-                  <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] bg
+                  <h2 className="text-2xl font-bold text-white bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] bg-clip-text text-transparent">
+                    {COMBINED_TIER.title}
+                  </h2>
+                  <p className="text-sm text-gray-400">{COMBINED_TIER.description}</p>
+                </CardHeader>
+                <Divider className="bg-gray-600" />
+                <CardBody className="gap-6">
+                  <p className="flex items-baseline gap-1 pt-2">
+                    <span className="text-4xl font-bold text-white">
+                      {COMBINED_TIER.price}
+                    </span>
+                  </p>
+                  <ul className="flex flex-col gap-3">
+                    {COMBINED_TIER.features.map((feature) => (
+                      <li key={feature} className="flex items-center gap-2">
+                        <FaCheck className="text-[#3B82F6]" />
+                        <p className="text-gray-300">{feature}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </CardBody>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button
+                    fullWidth
+                    color="primary"
+                    href={COMBINED_TIER.href}
+                    variant="solid"
+                    className="bg-gradient-to-r from-[#3B82F6] to-[#7B3FE4] text-white rounded-full py-3 font-semibold hover:bg-[#2563EB] transition-colors"
+                  >
+                    {COMBINED_TIER.buttonText}
+                  </Button>
+                </motion.div>
+              </Card>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Spacer y={12} />
+    </section>
+  );
+};
+
+export default Pricing;
