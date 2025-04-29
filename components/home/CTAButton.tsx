@@ -10,9 +10,14 @@ const CTAButton = ({ locale }: { locale: any }) => {
   };
 
   return (
-    <Button onClick={handleScroll}>
-      <RocketIcon className="mr-2 h-4 w-4" />
-      {locale === "id" ? "Mulai Sekarang" : "Get Started"}
+    <Button
+      onClick={handleScroll}
+      variant="default"
+      className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white"
+      aria-label="Scroll to Pricing"
+    >
+      <RocketIcon />
+      {locale.title}
     </Button>
   );
 };
