@@ -1,8 +1,18 @@
 "use client";
-import { LOGOS } from "@/config/logos";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
+
+const LOGOS = [
+  { name: "Next.js", image: "/images/techStack/logo1.png" },
+  { name: "React", image: "/images/techStack/logo2.png" },
+  { name: "Tailwind", image: "/images/techStack/logo3.png" },
+  { name: "Framer", image: "/images/techStack/logo4.png" },
+  { name: "Shadcnui", image: "/images/techStack/logo5.png" },
+  { name: "Nextui", image: "/images/techStack/logo6.png" },
+  { name: "TS", image: "/images/techStack/logo7.png" },
+  { name: "Vercel", image: "/images/techStack/logo8.png" },
+];
 
 const ScrollingLogos = () => {
   const { theme } = useTheme();
@@ -14,14 +24,14 @@ const ScrollingLogos = () => {
             <Image
               src={image.image}
               alt={image.name}
-              width={50}
-              height={50}
+              width={40} // Ukuran normal, lebih kecil dari 50 tetapi tidak terlalu kecil
+              height={40}
               style={{
-                objectFit: "cover", // cover, contain, none
+                objectFit: "contain", // Menggunakan "contain" agar proporsi logo tetap
               }}
               className={`${
-                theme === "dark" ? "filter dark:invert grayscale" : ""
-              } hover:filter-none transition-all duration-300 cursor-pointer text-gray-500`}
+                theme === "dark" ? "opacity-80" : "opacity-80"
+              } hover:opacity-100 transition-all duration-300 cursor-pointer text-gray-500`}
             />
           </div>
         ))}
