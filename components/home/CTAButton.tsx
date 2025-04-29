@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { RocketIcon } from "lucide-react";
 
@@ -14,7 +16,6 @@ const CTAButton = ({ locale }: CTAButtonProps) => {
       pricingSection.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
       console.warn("Pricing section not found in the DOM.");
-      // Fallback to URL hash navigation
       window.location.hash = "pricing";
     }
   };
