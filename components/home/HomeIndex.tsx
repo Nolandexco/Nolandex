@@ -23,8 +23,8 @@ const Testimonials = dynamic(() => import("@/components/home/Testimonials"), {
   loading: () => <div>Loading Testimonials...</div>,
 });
 
-export default async function HomeIndex({ lang }: { lang: string }) {
-  const langName = lang || defaultLocale;
+export default async function HomeIndex({ params }: { params: { lang: string } }) {
+  const langName = params.lang || defaultLocale;
   const dict = await getDictionary(langName);
 
   return (
@@ -32,20 +32,10 @@ export default async function HomeIndex({ lang }: { lang: string }) {
       <Hero locale={dict.Hero} langName={langName} CTALocale={dict.CTAButton} />
       <SocialProof locale={dict.SocialProof} />
       <ScrollingLogos />
-
-      {/* Feature section */}
       <Feature id="Features" locale={dict.Feature} langName={langName} />
-
-      {/* Pricing section */}
       <Pricing locale={dict.Pricing} langName={langName} />
-
-      {/* Testimonials */}
       <Testimonials id="Testimonials" locale={dict.Testimonials} />
-
-      {/* FAQ */}
       <FAQ id="FAQ" locale={dict.FAQ} langName={langName} />
-
-      {/* CTA */}
       <CTA locale={dict.CTA} CTALocale={dict.CTAButton} />
     </>
   );
