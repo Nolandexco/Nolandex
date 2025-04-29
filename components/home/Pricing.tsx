@@ -6,15 +6,19 @@ import { ALL_TIERS } from "@/config/tiers";
 import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
 
-const Pricing = ({
-  id,
-  locale,
-  langName,
-}: {
+interface PricingProps {
   id: string;
-  locale: any;
+  locale: {
+    title: string;
+    title2: string;
+    description: string;
+    doYouLike: string;
+    follow: string;
+  };
   langName: string;
-}) => {
+}
+
+const Pricing = ({ id, locale, langName }: PricingProps) => {
   const TIERS = ALL_TIERS[`TIERS_${langName.toUpperCase()}`];
 
   return (
@@ -22,7 +26,6 @@ const Pricing = ({
       id={id}
       className="flex flex-col justify-center max-w-6xl items-center pt-16 mx-auto px-4 sm:px-6 lg:px-8"
     >
-      {/* Header Section */}
       <div className="flex flex-col text-center max-w-xl">
         <h2 className="text-center text-gray-900 dark:text-white">
           <RoughNotation type="highlight" show={true} color="#2563EB">
@@ -37,50 +40,41 @@ const Pricing = ({
       </div>
       <Spacer y={8} />
 
-      {/* Pricing Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 justify-items-center w-full max-w-4xl">
-        {TIERS?.map((tier, index) => (
+        {TIERS?.map((tier: any, index: number) => (
           <div
             key={tier.key}
             className="flex flex-col bg-white dark:bg-gray-900 rounded-xl p-6 w-full max-w-md shadow-md"
           >
-            {/* Card Header */}
             <div className="flex flex-col items-start gap-2 pb-4">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {tier.title}
               </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {tier.description}
-              </p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{tier.description}</p>
             </div>
             <Divider className="bg-gray-300 dark:bg-gray-600" />
 
-            {/* Card Body */}
             <div className="flex flex-col gap-6 p-4">
-   }
-            <p className="text-2xl font-semibold text-gray-900 dark:text-white">
-              {tier.price}
-              {typeof tier.price !== "string" ? (
-                <span className="text-sm text-gray-TruncatedString; setIsMenuOpen(false)}
-                >
+              <p className="flex items-baseline gap-1">
+                <span className="text-2xl font-semibold text-gray-900 dark:text-white">
                   {tier.price}
                 </span>
-              ) : null}
-            </p>
-            <ul className="flex flex-col gap-2">
-              {tier.features?.map((feature) => (
-                <li
-                  key={feature}
-                  className="flex items-center gap-2"
-                >
-                  <FaCheck className="text-blue-500" />
-                  <p className="text-gray-600 dark:text-gray-400">{feature}</p>
-                </p>
-              ))}
-            </ul>
+                {typeof tier.price !== "string" && (
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    {tier.price}
+                  </span>
+                )}
+              </p>
+              <ul className="flex flex-col gap-2">
+                {tier.features?.map((feature: string) => (
+                  <li key={feature} className="flex items-center gap-2">
+                    <FaCheck className="text-blue-500" />
+                    <p className="text-gray-600 dark:text-gray-400">{feature}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* Card Footer */}
             <div>
               <Button
                 fullWidth
@@ -103,7 +97,6 @@ const Pricing = ({
       </div>
       <Spacer y={12} />
 
-      {/* Footer Section */}
       <div className="flex py-2">
         <p className="text-gray-600 dark:text-gray-400 text-center">
           {locale.doYouLike} 
