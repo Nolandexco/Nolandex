@@ -1,226 +1,119 @@
-import { LucideIcon, MagnetIcon } from "lucide-react";
 import { IconType } from "react-icons";
-import { BsGithub } from "react-icons/bs";
-import { FaToolbox } from "react-icons/fa";
-import { FaEarthAsia, FaMobileScreenButton } from "react-icons/fa6";
-import { MdCloudUpload } from "react-icons/md";
+import {
+  FaGlobe,
+  FaPaintBrush,
+  FaRobot,
+  FaPhotoVideo,
+  FaBullhorn,
+  FaTools,
+  FaCheckCircle,
+  FaClock,
+  FaShieldAlt,
+} from "react-icons/fa";
 
-export const FEATURES_EN = [
-  {
-    title: "Open Source Advantage",
-    content: "Completely free with a wealth of customization options.",
-    icon: BsGithub,
-  },
-  {
-    title: "Responsive Design",
-    content:
-      "Templates meticulously designed to ensure optimal display on any device.",
-    icon: FaMobileScreenButton,
-  },
-  {
-    title: "Easy Customization",
-    content:
-      "Effortlessly change colors, fonts, and layouts without any coding knowledge.",
-    icon: FaToolbox,
-  },
-  {
-    title: "SEO Optimized",
-    content:
-      "Templates built with search engine optimization in mind to enhance your website's discoverability.",
-    icon: MagnetIcon,
-  },
-  {
-    title: "One-Click Deployment",
-    content:
-      "Tightly integrated with leading web hosting services for instant website publishing.",
-    icon: MdCloudUpload,
-  },
-  {
-    title: "Globalization Support",
-    content:
-      "Supports multiple languages, making your website attractive to a global audience.",
-    icon: FaEarthAsia,
-  },
-];
-
-export const FEATURES_ZH = [
-  {
-    title: "开源优势",
-    content: "完全免费，提供丰富的自定义选项。",
-    icon: BsGithub,
-  },
-  {
-    title: "响应式设计",
-    content: "精心设计的模板，确保在任何设备上都能优化显示。",
-    icon: FaMobileScreenButton,
-  },
-  {
-    title: "易于定制",
-    content: "轻松更改颜色、字体和布局，无需任何编码知识。",
-    icon: FaToolbox,
-  },
-  {
-    title: "SEO优化",
-    content: "构建模板时考虑到搜索引擎优化，增强网站的可发现性。",
-    icon: MagnetIcon,
-  },
-  {
-    title: "一键部署",
-    content: "与领先的网站托管服务紧密集成，实现即时网站发布。",
-    icon: MdCloudUpload,
-  },
-  {
-    title: "全球化支持",
-    content: "支持多种语言，让你的网站吸引全球受众。",
-    icon: FaEarthAsia,
-  },
-];
-
-export const FEATURES_JA = [
-  {
-    title: "オープンソースの利点",
-    content: "完全無料で、豊富なカスタマイズオプションを提供。",
-    icon: BsGithub,
-  },
-  {
-    title: "レスポンシブデザイン",
-    content: "どのデバイス上でも最適に表示されるように細心のデザインを施したテンプレート。",
-    icon: FaMobileScreenButton,
-  },
-  {
-    title: "簡単カスタマイズ",
-    content: "色、フォント、レイアウトをコーディング知識なしで簡単に変更可能。",
-    icon: FaToolbox,
-  },
-  {
-    title: "SEO最適化",
-    content: "ウェブサイトの発見可能性を高めるために、検索エンジン最適化を念頭に置いて構築されたテンプレート。",
-    icon: MagnetIcon,
-  },
-  {
-    title: "ワンクリックデプロイメント",
-    content: "主要なウェブホスティングサービスと密接に統合し、即時にウェブサイトを公開。",
-    icon: MdCloudUpload,
-  },
-  {
-    title: "グローバリゼーションサポート",
-    content: "複数言語をサポートし、グローバルな視聴者を魅了するウェブサイト。",
-    icon: FaEarthAsia,
-  },
-];
-
-export const FEATURES_AR = [
-  {
-    title: "ميزة المصدر المفتوح",
-    content: "مجانية بالكامل مع ثروة من خيارات التخصيص.",
-    icon: BsGithub,
-  },
-  {
-    title: "تصميم متجاوب",
-    content: "تم تصميم القوالب بعناية لضمان عرض مثالي على أي جهاز.",
-    icon: FaMobileScreenButton,
-  },
-  {
-    title: "تخصيص سهل",
-    content: "غير الألوان والخطوط والتخطيطات بسهولة دون الحاجة إلى معرفة بالبرمجة.",
-    icon: FaToolbox,
-  },
-  {
-    title: "مُحسّن لمحركات البحث",
-    content: "تم بناء القوالب مع مراعاة تحسين محركات البحث لتعزيز قابلية اكتشاف موقعك.",
-    icon: MagnetIcon,
-  },
-  {
-    title: "نشر بنقرة واحدة",
-    content: "متكاملة بشكل وثيق مع خدمات استضافة الويب الرائدة لنشر الموقع فوراً.",
-    icon: MdCloudUpload,
-  },
-  {
-    title: "دعم العولمة",
-    content: "يدعم لغات متعددة، مما يجعل موقعك جذابًا لجمهور عالمي.",
-    icon: FaEarthAsia,
-  },
-];
-
-export const FEATURES_ES = [
-  {
-    title: "Ventaja del Código Abierto",
-    content: "Completamente gratuito con una riqueza de opciones de personalización.",
-    icon: BsGithub,
-  },
-  {
-    title: "Diseño Responsivo",
-    content: "Plantillas diseñadas meticulosamente para garantizar una visualización óptima en cualquier dispositivo.",
-    icon: FaMobileScreenButton,
-  },
-  {
-    title: "Personalización Fácil",
-    content: "Cambia colores, fuentes y diseños sin esfuerzo y sin necesidad de conocimientos de codificación.",
-    icon: FaToolbox,
-  },
-  {
-    title: "Optimizado para SEO",
-    content: "Plantillas construidas con la optimización de motores de búsqueda en mente para mejorar la descubribilidad de tu sitio web.",
-    icon: MagnetIcon,
-  },
-  {
-    title: "Despliegue con Un Clic",
-    content: "Integrado estrechamente con servicios líderes de alojamiento web para la publicación instantánea del sitio web.",
-    icon: MdCloudUpload,
-  },
-  {
-    title: "Soporte de Globalización",
-    content: "Soporta múltiples idiomas, haciendo tu sitio web atractivo para una audiencia global.",
-    icon: FaEarthAsia,
-  },
-];
-
-export const FEATURES_RU = [
-  {
-    title: "Преимущество Открытого Исходного Кода",
-    content: "Полностью бесплатно с широкими возможностями настройки.",
-    icon: BsGithub,
-  },
-  {
-    title: "Адаптивный Дизайн",
-    content: "Шаблоны, тщательно разработанные для обеспечения оптимального отображения на любом устройстве.",
-    icon: FaMobileScreenButton,
-  },
-  {
-    title: "Легкая Настройка",
-    content: "Легко изменяйте цвета, шрифты и макеты без знаний в области программирования.",
-    icon: FaToolbox,
-  },
-  {
-    title: "Оптимизировано для Поисковых Систем",
-    content: "Шаблоны созданы с учетом оптимизации для поисковых систем, чтобы повысить обнаруживаемость вашего сайта.",
-    icon: MagnetIcon,
-  },
-  {
-    title: "Развертывание в Один Клик",
-    content: "Плотно интегрировано с ведущими сервисами веб-хостинга для мгновенной публикации сайта.",
-    icon: MdCloudUpload,
-  },
-  {
-    title: "Поддержка Глобализации",
-    content: "Поддерживает несколько языков, делая ваш сайт привлекательным для мировой аудитории.",
-    icon: FaEarthAsia,
-  },
-];
+interface Feature {
+  title: string;
+  content: string;
+  icon: IconType | string;
+}
 
 interface FeaturesCollection {
-  [key: `FEATURES_${string}`]: {
-    title: string;
-    content: string;
-    icon: IconType | LucideIcon | string;
-  }[];
+  [key: `FEATURES_${string}`]: Feature[];
 }
 
 export const ALL_FEATURES: FeaturesCollection = {
-  FEATURES_EN,
-  FEATURES_ZH,
-  FEATURES_JA,
-  FEATURES_AR,
-  FEATURES_ES,
-  FEATURES_RU
-}
+  FEATURES_EN: [
+    {
+      title: "Professional Website",
+      content: "Get a fully functional, modern website tailored to your business needs.",
+      icon: FaGlobe,
+    },
+    {
+      title: "Branding & Design",
+      content: "Create a unique brand identity with logos, promotional designs, and visuals.",
+      icon: FaPaintBrush,
+    },
+    {
+      title: "Order & Payment Automation",
+      content: "Streamline your business with automated order processing and secure payment systems.",
+      icon: FaRobot,
+    },
+    {
+      title: "Social Media Content",
+      content: "Engage your audience with professionally crafted social media posts and visuals.",
+      icon: FaPhotoVideo,
+    },
+    {
+      title: "Marketing Strategies",
+      content: "Boost your reach with data-driven marketing plans tailored to your goals.",
+      icon: FaBullhorn,
+    },
+    {
+      title: "Business Tools",
+      content: "Access tools to manage and grow your business efficiently.",
+      icon: FaTools,
+    },
+    {
+      title: "Proven Results",
+      content: "Our strategies have helped businesses grow with measurable success.",
+      icon: FaCheckCircle,
+    },
+    {
+      title: "Quick Setup",
+      content: "Launch your online business in just a few working hours.",
+      icon: FaClock,
+    },
+    {
+      title: "50% Money-Back Guarantee",
+      content: "If your business doesn’t grow in 30 days, get 50% of your money back.",
+      icon: FaShieldAlt,
+    },
+  ],
+  FEATURES_ID: [
+    {
+      title: "Website Profesional",
+      content: "Dapatkan website modern yang dirancang sesuai kebutuhan bisnis Anda.",
+      icon: FaGlobe,
+    },
+    {
+      title: "Branding & Desain",
+      content: "Ciptakan identitas merek unik dengan logo dan materi promosi.",
+      icon: FaPaintBrush,
+    },
+    {
+      title: "Otomasi Pesanan & Pembayaran",
+      content: "Sederhanakan bisnis Anda dengan sistem otomasi pesanan dan pembayaran aman.",
+      icon: FaRobot,
+    },
+    {
+      title: "Konten Media Sosial",
+      content: "Tarik perhatian audiens dengan konten media sosial yang dirancang profesional.",
+      icon: FaPhotoVideo,
+    },
+    {
+      title: "Strategi Pemasaran",
+      content: "Tingkatkan jangkauan dengan strategi pemasaran berbasis data.",
+      icon: FaBullhorn,
+    },
+    {
+      title: "Alat Bisnis",
+      content: "Akses alat untuk mengelola dan mengembangkan bisnis Anda dengan efisien.",
+      icon: FaTools,
+    },
+    {
+      title: "Hasil Terbukti",
+      content: "Strategi kami telah membantu bisnis tumbuh dengan hasil nyata.",
+      icon: FaCheckCircle,
+    },
+    {
+      title: "Pengaturan Cepat",
+      content: "Luncurkan bisnis online Anda dalam beberapa jam kerja.",
+      icon: FaClock,
+    },
+    {
+      title: "Jaminan Uang Kembali 50%",
+      content: "Jika bisnis Anda tidak berkembang dalam 30 hari, dapatkan kembali 50% dana Anda.",
+      icon: FaShieldAlt,
+    },
+  ],
+};
