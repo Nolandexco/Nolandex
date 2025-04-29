@@ -10,31 +10,15 @@ interface HeroProps {
     title3: string;
     description: string;
   };
-  langName: string;
   CTALocale: {
     title: string;
   };
 }
 
-const Hero = ({ locale, langName, CTALocale }: HeroProps) => {
+const Hero = ({ locale, CTALocale }: HeroProps) => {
   return (
     <>
-      {/* <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.3,
-          ease: [0, 0.71, 0.2, 1],
-          scale: {
-            type: "tween", // tween spring
-            // damping: 10, // if spring
-            // stiffness: 50, // if spring
-            // restDelta: 0.001, // if spring
-          },
-        }}
-      > */}
       <section
-        lang={langName}
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 pt-16 md:pt-24 text-center"
       >
         <h1>
@@ -44,7 +28,6 @@ const Hero = ({ locale, langName, CTALocale }: HeroProps) => {
           {locale.description}
         </p>
       </section>
-      {/* </motion.div> */}
       <CTAButton locale={CTALocale} />
     </>
   );
