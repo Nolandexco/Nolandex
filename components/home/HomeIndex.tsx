@@ -18,14 +18,19 @@ export default async function HomeIndex({ lang }: { lang: string }) {
       <SocialProof locale={dict.SocialProof} />
       <ScrollingLogos />
 
-      {/* Feature section with id */}
+      {/* Feature section */}
       <Feature id="Features" locale={dict.Feature} langName={langName} />
 
       {/* Pricing section */}
       <Pricing locale={dict.Pricing} langName={langName} />
 
-      <Testimonials locale={dict.Testimonials} />
-      <FAQ locale={dict.FAQ} langName={langName} />
+      {/* Testimonials */}
+      <Testimonials id="Testimonials" locale={dict.Testimonials} />
+
+      {/* FAQ */}
+      <FAQ id="FAQ" locale={dict.FAQ} langName={langName} />
+
+      {/* CTA */}
       <CTA locale={dict.CTA} CTALocale={dict.CTAButton} />
     </>
   );
