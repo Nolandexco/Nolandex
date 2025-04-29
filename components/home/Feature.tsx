@@ -1,99 +1,51 @@
-import { FaGlobe, FaPaintBrush, FaRobot, FaPhotoVideo, FaBullhorn, FaTools, FaCheckCircle, FaClock, FaShieldAlt } from 'react-icons/fa';
+import { ALL_FEATURES } from "@/config/feature";
+import React from "react";
+import { RoughNotation } from "react-rough-notation";
 
-export const ALL_FEATURES = {
-  FEATURES_EN: [
-    {
-      title: "Professional Website",
-      content: "Get a fully functional, modern website tailored to your business needs.",
-      icon: FaGlobe,
-    },
-    {
-      title: "Branding & Design",
-      content: "Create a unique brand identity with logos, promotional designs, and visuals.",
-      icon: FaPaintBrush,
-    },
-    {
-      title: "Order & Payment Automation",
-      content: "Streamline your business with automated order processing and secure payment systems.",
-      icon: FaRobot,
-    },
-    {
-      title: "Social Media Content",
-      content: "Engage your audience with professionally crafted social media posts and visuals.",
-      icon: FaPhotoVideo,
-    },
-    {
-      title: "Marketing Strategies",
-      content: "Boost your reach with data-driven marketing plans tailored to your goals.",
-      icon: FaBullhorn,
-    },
-    {
-      title: "Business Tools",
-      content: "Access tools to manage and grow your business efficiently.",
-      icon: FaTools,
-    },
-    {
-      title: "Proven Results",
-      content: "Our strategies have helped businesses grow with measurable success.",
-      icon: FaCheckCircle,
-    },
-    {
-      title: "Quick Setup",
-      content: "Launch your online business in just a few working hours.",
-      icon: FaClock,
-    },
-    {
-      title: "50% Money-Back Guarantee",
-      content: "If your business doesn’t grow in 30 days, get 50% of your money back.",
-      icon: FaShieldAlt,
-    },
-  ],
-  // Tambahkan konfigurasi untuk bahasa lain jika diperlukan, misalnya FEATURES_ID untuk Bahasa Indonesia
-  FEATURES_ID: [
-    {
-      title: "Website Profesional",
-      content: "Dapatkan website modern yang dirancang sesuai kebutuhan bisnis Anda.",
-      icon: FaGlobe,
-    },
-    {
-      title: "Branding & Desain",
-      content: "Ciptakan identitas merek unik dengan logo dan materi promosi.",
-      icon: FaPaintBrush,
-    },
-    {
-      title: "Otomasi Pesanan & Pembayaran",
-      content: "Sederhanakan bisnis Anda dengan sistem otomasi pesanan dan pembayaran aman.",
-      icon: FaRobot,
-    },
-    {
-      title: "Konten Media Sosial",
-      content: "Tarik perhatian audiens dengan konten media sosial yang dirancang profesional.",
-      icon: FaPhotoVideo,
-    },
-    {
-      title: "Strategi Pemasaran",
-      content: "Tingkatkan jangkauan dengan strategi pemasaran berbasis data.",
-      icon: FaBullhorn,
-    },
-    {
-      title: "Alat Bisnis",
-      content: "Akses alat untuk mengelola dan mengembangkan bisnis Anda dengan efisien.",
-      icon: FaTools,
-    },
-    {
-      title: "Hasil Terbukti",
-      content: "Strategi kami telah membantu bisnis tumbuh dengan hasil nyata.",
-      icon: FaCheckCircle,
-    },
-    {
-      title: "Pengaturan Cepat",
-      content: "Luncurkan bisnis online Anda dalam beberapa jam kerja.",
-      icon: FaClock,
-    },
-    {
-      title: "Jaminan Uang Kembali 50%",
-      content: "Jika bisnis Anda tidak berkembang dalam 30 hari, dapatkan kembali 50% dana Anda.",
-      icon: FaShieldAlt,
-    },
-  ],
+const Feature = ({
+  id,
+  locale,
+  langName,
+}: {
+  id: string;
+  locale: { title: string };
+  langName: string;
+}) => {
+  const FEATURES = ALL_FEATURES[`FEATURES_${langName.toUpperCase()}`];
+  return (
+    <section
+      id={id}
+      className="flex flex-col justify-center lg:max-w-7xl md:max-w-5xl w-[95%] mx-auto md:gap-14 pt-16"
+    >
+      <h2 className="text-center text-white text-3xl font-bold mb-10">
+        <RoughNotation type="highlight" show={true} color="#2563EB">
+          {locale.title}
+        </RoughNotation>
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {FEATURES?.map((feature, index) => (
+          <div
+            key={feature.title}
+            className="flex flex-col items-center text-center px-8 py-6 bg-white dark:bg-gray-800 rounded-lg shadow-md transition-transform transform hover:scale-105"
+          >
+            <div className="p-4 w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
+              {feature.icon && typeof feature.icon === "string" ? (
+                <span className="text-2xl">{feature.icon}</span>
+              ) : (
+                React.createElement(feature.icon, {
+                  className: "text-2xl text-blue-600 dark:text-blue-300",
+                })
+              )}
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+              {feature.title}
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300">{feature.content}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 };
+
+export default Feature;
