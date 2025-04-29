@@ -8,32 +8,28 @@ import SocialProof from "@/components/home/SocialProof";
 import Testimonials from "@/components/home/Testimonials";
 import { defaultLocale, getDictionary } from "@/lib/i18n";
 
-export default async function HomeIndex({ lang }: { lang: string }) {
-  const langName = lang || defaultLocale;
-  const dict = await getDictionary(langName);
+export default async function HomeIndex() {
+  const dict = await getDictionary(defaultLocale);
 
   return (
     <>
       {/* Hero Section */}
-      <Hero locale={dict.Hero} langName={langName} CTALocale={dict.CTAButton} />
+      <Hero locale={dict.Hero} CTALocale={dict.CTAButton} />
       <SocialProof locale={dict.SocialProof} />
-      {/* display technology stack, partners, project honors, etc. */}
+      {/* Display technology stack, partners, project honors, etc. */}
       <ScrollingLogos />
 
-      {/* Showcase */}
-      {/* <Showcase id="Showcase" locale={dict.Showcase} /> */}
-
       {/* USP (Unique Selling Proposition) */}
-      <Feature id="Features" locale={dict.Feature} langName={langName} />
+      <Feature id="Features" locale={dict.Feature} />
 
       {/* Pricing */}
-      <Pricing id="Pricing" locale={dict.Pricing} langName={langName} />
+      <Pricing id="Pricing" locale={dict.Pricing} />
 
       {/* Testimonials */}
       <Testimonials id="Testimonials" locale={dict.Testimonials} />
 
       {/* FAQ (Frequently Asked Questions) */}
-      <FAQ id="FAQ" locale={dict.FAQ} langName={langName} />
+      <FAQ id="FAQ" locale={dict.FAQ} />
 
       {/* CTA (Call to Action) */}
       <CTA locale={dict.CTA} CTALocale={dict.CTAButton} />
