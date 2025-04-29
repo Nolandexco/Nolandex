@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CgClose } from "react-icons/cg";
 import { ThemedButton } from "../ThemedButton";
 
@@ -19,14 +19,31 @@ const Header = () => {
   const params = useParams();
   const lang = params.lang;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Add scroll event listener to toggle blur effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50); // Apply blur when scrolled past 50px
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-隊 w-full bg-background shadow-md z-50 py-6 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <nav className="relative flex justify-between items-center">
-        {/* Left section */}
-        <div className="flex items-center md:gap-x-12 flex-1">
-          <Link href="/" aria-label="NolanDex" title="NolanDex" className="flex items-center space-x-1">
-            <span className="text-2xl font-bold text-gray-950 dark:text-gray-300 hidden md:block font-poppins">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 py-3 px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md shadow-sm"
+          : "bg-background shadow-sm"
+      }`}
+    >
+      <nav className="mx-auto max-w-7xl flex justify-between items-center">
+        {/* Left section - NolanDex always visible */}
+        <div className="flex items-center">
+          <Link href="/" aria-label="NolanDex" title="NolanDex" className="flex items-center">
+            <span className="text-xl font-bold text-gray-950 dark:text-gray-300 font-poppins">
               NolanDex
             </span>
           </Link>
@@ -75,7 +92,7 @@ const Header = () => {
                       title="NolanDex"
                       className="inline-flex items-center"
                     >
-                      <span className="ml-2 text-xl font-bold tracking-wide text-gray-950 dark:text-gray-300 font-poppins">
+                      <span className="text-xl font-bold tracking-wide text-gray-950 dark:text-gray-300 font-poppins">
                         NolanDex
                       </span>
                     </Link>
