@@ -1,16 +1,26 @@
 import dynamic from "next/dynamic";
-import CTA from "@/components/home/CTA";
-import FAQ from "@/components/home/FAQ";
 import Feature from "@/components/home/Feature";
-import Hero from "@/components/home/Hero";
-import ScrollingLogos from "@/components/home/ScrollingLogos";
-import SocialProof from "@/components/home/SocialProof";
-import Testimonials from "@/components/home/Testimonials";
+import FAQ from "@/components/home/FAQ";
 import { defaultLocale, getDictionary } from "@/lib/i18n";
 
-// Dynamic import for Pricing to handle lazy loading
+// Dynamic imports for Client Components
+const Hero = dynamic(() => import("@/components/home/Hero"), {
+  loading: () => <div>Loading Hero...</div>,
+});
 const Pricing = dynamic(() => import("@/components/home/Pricing"), {
   loading: () => <div>Loading Pricing...</div>,
+});
+const CTA = dynamic(() => import("@/components/home/CTA"), {
+  loading: () => <div>Loading CTA...</div>,
+});
+const ScrollingLogos = dynamic(() => import("@/components/home/ScrollingLogos"), {
+  loading: () => <div>Loading Scrolling Logos...</div>,
+});
+const SocialProof = dynamic(() => import("@/components/home/SocialProof"), {
+  loading: () => <div>Loading Social Proof...</div>,
+});
+const Testimonials = dynamic(() => import("@/components/home/Testimonials"), {
+  loading: () => <div>Loading Testimonials...</div>,
 });
 
 export default async function HomeIndex({ lang }: { lang: string }) {
