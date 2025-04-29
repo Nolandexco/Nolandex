@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from "@/config/site";
 import { TestimonialsData } from "@/config/testimonials";
@@ -6,10 +5,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { RoughNotation } from "react-rough-notation";
 
-const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
+interface TestimonialProps {
+  id: string;
+  locale: {
+    title: string;
+    description1: string;
+    description2: string;
+    description3: string;
+  };
+}
+
+const Testimonials: React.FC<TestimonialProps> = ({ id, locale }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerWidth, setContainerWidth] = useState(0);
 
   const getVisibleCount = () => {
     if (typeof window === 'undefined') return 1;
@@ -21,14 +29,9 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
+      // Force re-render on resize
+      setCurrentIndex(prev => prev);
     };
-
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.offsetWidth);
-    }
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -36,10 +39,9 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
 
   useEffect(() => {
     const visibleCount = getVisibleCount();
+    const totalSlides = Math.ceil(TestimonialsData.length / visibleCount);
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
-        (prevIndex + 1) % Math.ceil(TestimonialsData.length / visibleCount)
-      );
+      setCurrentIndex(prevIndex => (prevIndex + 1) % totalSlides);
     }, 5000);
 
     return () => clearInterval(interval);
@@ -55,7 +57,7 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
     >
       <div className="flex flex-col text-center max-w-xl gap-4">
         <h2 className="text-center text-white">
-          <RoughNotation type="highlight", show={true} color="#2563EB">
+          <RoughNotation type="highlight" show={true} color="#2563EB">
             {locale.title}
           </RoughNotation>
         </h2>
@@ -73,11 +75,9 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
         </p>
       </div>
       
-      <div 
-        ref={containerRef}
-        className="w-full relative"
-      >
-        <div className="flex transition-transform duration-500 ease-in-out"
+      <div ref={containerRef} className="w-full relative">
+        <div 
+          className="flex transition-transform duration-500 ease-in-out"
           style={{
             transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
             width: `${(TestimonialsData.length / visibleCount) * 100}%`
@@ -89,23 +89,23 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
               className="flex-shrink-0 px-2"
               style={{ width: `${100 / visibleCount}%` }}
             >
-              <div className="border border-slate/10 rounded-lg p-4 flex flex-col items-start gap-3 h-full">
+              <div className="border border-slate-200/10 rounded-lg p-4 flex flex-col items-start gap-3 h-full">
                 <div className="flex items-start gap-2 w-full">
                   <Image
                     src={testimonial.user.image}
                     alt={testimonial.user.name}
-                    height={40}
-                    width={40}
-                    className="w-12 h-12 rounded-full object-cover object-top"
+                    width={48}
+                    height={48}
+                    className="rounded-full object-cover object-top"
                   />
                   <div className="flex flex-col items-start">
                     <p className="font-bold">{testimonial.user.name}</p>
-                    <p className="dark:text-zinc-400">
+                    <p className="text-zinc-400 dark:text-zinc-400">
                       @{testimonial.user.username}
                     </p>
                   </div>
                 </div>
-                <p className="dark:text-zinc-200 text-[14px]">
+                <p className="text-zinc-700 dark:text-zinc-200 text-sm">
                   {testimonial.content}
                 </p>
               </div>
@@ -118,7 +118,9 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
             <button
               key={i}
               onClick={() => setCurrentIndex(i)}
-              className={`w-3 h-3 rounded-full ${i === currentIndex ? 'bg-primary' : 'bg-gray-400'}`}
+              className={`w-3 h-3 rounded-full transition-colors ${
+                i === currentIndex ? 'bg-blue-600' : 'bg-gray-400'
+              }`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
