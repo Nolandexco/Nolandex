@@ -71,18 +71,37 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
           </p>
         </div>
 
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-center gap-4 mt-6">
           <button
             onClick={prevSlide}
-            className="text-sm text-primary underline hover:opacity-70 transition"
+            aria-label="Previous testimonial"
+            className="w-10 h-10 rounded-full bg-primary text-white hover:bg-primary/80 transition flex items-center justify-center shadow"
           >
-            Previous
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
+
           <button
             onClick={nextSlide}
-            className="text-sm text-primary underline hover:opacity-70 transition"
+            aria-label="Next testimonial"
+            className="w-10 h-10 rounded-full bg-primary text-white hover:bg-primary/80 transition flex items-center justify-center shadow"
           >
-            Next
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
           </button>
         </div>
       </div>
