@@ -18,21 +18,15 @@ const links = [
 const Header = () => {
   const params = useParams();
   const lang = params.lang;
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-background shadow-md z-50 py-6 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <header className="fixed top-0 left-隊 w-full bg-background shadow-md z-50 py-6 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <nav className="relative flex justify-between items-center">
         {/* Left section */}
         <div className="flex items-center md:gap-x-12 flex-1">
-          <Link
-            href="/"
-            aria-label="NolanDex"
-            title="NolanDex"
-            className="flex items-center space-x-1"
-          >
-            <span className="text-2xl font-bold text-gray-950 dark:text-gray-300 hidden md:block font-['Poppins']">
+          <Link href="/" aria-label="NolanDex" title="NolanDex" className="flex items-center space-x-1">
+            <span className="text-2xl font-bold text-gray-950 dark:text-gray-300 hidden md:block font-poppins">
               NolanDex
             </span>
           </Link>
@@ -81,7 +75,7 @@ const Header = () => {
                       title="NolanDex"
                       className="inline-flex items-center"
                     >
-                      <span className="ml-2 text-xl font-bold tracking-wide text-gray-950 dark:text-gray-300 font-['Poppins']">
+                      <span className="ml-2 text-xl font-bold tracking-wide text-gray-950 dark:text-gray-300 font-poppins">
                         NolanDex
                       </span>
                     </Link>
@@ -124,7 +118,6 @@ const Header = () => {
                 </div>
               </div>
             </div>
-           div>
           )}
         </div>
       </nav>
