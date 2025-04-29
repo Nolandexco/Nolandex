@@ -11,6 +11,10 @@ const LOGOS = [
   { name: "Nextui", image: "/images/techStack/logo6.png" },
   { name: "TS", image: "/images/techStack/logo7.png" },
   { name: "Vercel", image: "/images/techStack/logo8.png" },
+  { name: "Node.js", image: "/images/techStack/logo9.png" },
+  { name: "MongoDB", image: "/images/techStack/logo10.png" },
+  { name: "Figma", image: "/images/techStack/logo11.png" },
+  { name: "GitHub", image: "/images/techStack/logo12.png" },
 ];
 
 const ScrollingLogos = () => {
@@ -18,7 +22,7 @@ const ScrollingLogos = () => {
     <section className="mx-auto w-full md:max-w-5xl lg:max-w-7xl px-0 md:px-6 lg:px-8 pt-16">
       <Marquee direction="left" autoFill pauseOnHover>
         {LOGOS.map((image, index) => (
-          <div className="mx-1 text-gray-500" key={index}>
+          <div className="mx-0.5 text-gray-500" key={index}>
             <Image
               src={image.image}
               alt={image.name}
