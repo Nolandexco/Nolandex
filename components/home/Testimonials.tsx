@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { siteConfig } from "@/config/site";
 import { TestimonialsData } from "@/config/testimonials";
 import Image from "next/image";
@@ -11,37 +11,42 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
 
-  useEffect(() => {
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.offsetWidth);
-    }
+  const getVisibleCount = () => {
+    if (typeof window === 'undefined') return 1;
+    if (window.innerWidth >= 1280) return 4;
+    if (window.innerWidth >= 1024) return 3;
+    if (window.innerWidth >= 640) return 2;
+    return 1;
+  };
 
+  useEffect(() => {
     const handleResize = () => {
       if (containerRef.current) {
         setContainerWidth(containerRef.current.offsetWidth);
       }
     };
 
+    if (containerRef.current) {
+      setContainerWidth(containerRef.current.offsetWidth);
+    }
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
+    const visibleCount = getVisibleCount();
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => 
-        (prevIndex + 1) % Math.ceil(TestimonialsData.length / getVisibleCount())
+        (prevIndex + 1) % Math.ceil(TestimonialsData.length / visibleCount)
       );
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [containerWidth]);
+  }, []);
 
-  const getVisibleCount = () => {
-    if (containerWidth >= 1280) return 4;
-    if (containerWidth >= 1024) return 3;
-    if (containerWidth >= 640) return 2;
-    return 1;
-  };
+  const visibleCount = getVisibleCount();
+  const totalSlides = Math.ceil(TestimonialsData.length / visibleCount);
 
   return (
     <section
@@ -50,14 +55,14 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
     >
       <div className="flex flex-col text-center max-w-xl gap-4">
         <h2 className="text-center text-white">
-          <RoughNotation type="highlight" show={true} color="#2563EB">
+          <RoughNotation type="highlight", show={true} color="#2563EB">
             {locale.title}
           </RoughNotation>
         </h2>
         <p className="text-large text-default-500">
           {locale.description1}{" "}
           <Link
-            href={siteConfig.authors[0].twitter as string}
+            href={siteConfig.authors[0].twitter}
             target="_blank"
             rel="noopener noreferrer nofollow"
             className="text-primary underline"
@@ -74,21 +79,21 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
       >
         <div className="flex transition-transform duration-500 ease-in-out"
           style={{
-            transform: `translateX(-${currentIndex * (100 / getVisibleCount())}%)`,
-            width: `${(TestimonialsData.length / getVisibleCount()) * 100}%`
+            transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
+            width: `${(TestimonialsData.length / visibleCount) * 100}%`
           }}
         >
           {TestimonialsData.map((testimonial, index) => (
             <div 
               key={index}
               className="flex-shrink-0 px-2"
-              style={{ width: `${100 / getVisibleCount()}%` }}
+              style={{ width: `${100 / visibleCount}%` }}
             >
               <div className="border border-slate/10 rounded-lg p-4 flex flex-col items-start gap-3 h-full">
                 <div className="flex items-start gap-2 w-full">
                   <Image
                     src={testimonial.user.image}
-                    alt="maker"
+                    alt={testimonial.user.name}
                     height={40}
                     width={40}
                     className="w-12 h-12 rounded-full object-cover object-top"
@@ -109,7 +114,7 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
         </div>
         
         <div className="flex justify-center mt-6 gap-2">
-          {Array.from({ length: Math.ceil(TestimonialsData.length / getVisibleCount()) }).map((_, i) => (
+          {Array.from({ length: totalSlides }).map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentIndex(i)}
