@@ -16,26 +16,26 @@ export default async function HomeIndex({ lang }: { lang: string }) {
     <>
       {/* Hero Section */}
       <Hero locale={dict.Hero} langName={langName} CTALocale={dict.CTAButton} />
+
+      {/* Social Proof / Trusted by */}
       <SocialProof locale={dict.SocialProof} />
-      {/* display technology stack, partners, project honors, etc. */}
+
+      {/* Scrolling Logos / Tech Stack */}
       <ScrollingLogos />
 
-      {/* Showcase */}
-      {/* <Showcase id="Showcase" locale={dict.Showcase} /> */}
+      {/* Unique Selling Proposition */}
+      <Feature locale={dict.Feature} langName={langName} />
 
-      {/* USP (Unique Selling Proposition) */}
-      <Feature id="Features" locale={dict.Feature} langName={langName} />
-
-      {/* Pricing */}
-      <Pricing id="Pricing" locale={dict.Pricing} langName={langName} />
+      {/* Pricing Section */}
+      <Pricing locale={dict.Pricing} langName={langName} />
 
       {/* Testimonials */}
-      <Testimonials id="Testimonials" locale={dict.Testimonials} />
+      <Testimonials locale={dict.Testimonials} />
 
-      {/* FAQ (Frequently Asked Questions) */}
-      <FAQ id="FAQ" locale={dict.FAQ} langName={langName} />
+      {/* FAQ */}
+      <FAQ locale={dict.FAQ} langName={langName} />
 
-      {/* CTA (Call to Action) */}
+      {/* Final Call to Action */}
       <CTA locale={dict.CTA} CTALocale={dict.CTAButton} />
     </>
   );
