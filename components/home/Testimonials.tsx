@@ -18,7 +18,6 @@ interface TestimonialsProps {
 }
 
 const Testimonials = ({ id, locale }: TestimonialsProps) => {
-  // Slider settings
   const settings = {
     dots: true,
     infinite: true,
