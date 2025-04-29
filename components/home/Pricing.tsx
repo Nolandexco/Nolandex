@@ -20,85 +20,61 @@ const Pricing = ({
   return (
     <section
       id={id}
-      className="flex flex-col justify-center max-w-4xl items-center pt-16"
-      style={{ backgroundColor: "transparent" }}
+      className="flex flex-col justify-center max-w-4xl items-center pt-16 mx-auto"
     >
-      {/* Inline CSS to Prevent Overrides */}
-      <style jsx>{`
-        .pricing-card {
-          background-color: #18181a !important;
-          border-radius: 12px;
-          padding: 16px;
-          flex: 1;
-          width: 90%;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-          color: white;
-        }
-        .pricing-card * {
-          background-color: transparent !important;
-        }
-      `}</style>
-
       {/* Header Section */}
       <div className="flex flex-col text-center max-w-xl">
-        <h2 className="text-center text-white">
+        <h2 className="text-center text-gray-900 dark:text-white">
           <RoughNotation type="highlight" show={true} color="#2563EB">
             {locale.title}
           </RoughNotation>
         </h2>
-        <h3 className="text-4xl font-medium tracking-tight mt-2">
+        <h3 className="text-4xl font-medium tracking-tight mt-2 text-gray-900 dark:text-white">
           {locale.title2}
         </h3>
         <Spacer y={4} />
-        <p className="text-large text-gray-400">{locale.description}</p>
+        <p className="text-lg text-gray-600 dark:text-gray-400">{locale.description}</p>
       </div>
       <Spacer y={8} />
 
       {/* Pricing Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 justify-items-center">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 justify-items-center w-full">
         {TIERS?.map((tier, index) => (
           <div
             key={tier.key}
-            className="pricing-card"
-            style={{
-              backgroundColor: "#18181a !important", // Abu-abu sangat gelap
-              borderRadius: "12px",
-              padding: "16px",
-              flex: 1,
-              width: "90%",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)",
-              color: "white",
-            }}
+            className="flex flex-col bg-white dark:bg-gray-900 rounded-xl p-4 w-full sm:w-[90%] shadow-md"
           >
             {/* Card Header */}
             <div className="flex flex-col items-start gap-2 pb-4">
-              <h2 style={{ fontSize: "18px", fontWeight: 500 }}>{tier.title}</h2>
-              <p style={{ fontSize: "14px", color: "#D1D5DB" }}>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                {tier.title}
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 {tier.description}
               </p>
             </div>
-            <Divider style={{ backgroundColor: "#6B7280" }} />
+            <Divider className="bg-gray-300 dark:bg-gray-600" />
 
             {/* Card Body */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "24px", padding: "16px 0" }}>
-              <p style={{ display: "flex", alignItems: "baseline", gap: "4px" }}>
-                <span style={{ fontSize: "24px", fontWeight: 600 }}>
+            <div className="flex flex-col gap-6 p-4">
+              <p className="flex items-baseline gap-1">
+                <span className="text-2xl font-semibold text-gray-900 dark:text-white">
                   {tier.price}
                 </span>
                 {typeof tier.price !== "string" ? (
-                  <span style={{ fontSize: "14px", color: "#D1D5DB" }}>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
                     {tier.price}
                   </span>
                 ) : null}
               </p>
-              <ul style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+              <ul className="flex flex-col gap-2">
                 {tier.features?.map((feature) => (
                   <li
                     key={feature}
-                    style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                    className="flex items-center gap-2"
                   >
-                    <FaCheck style={{ color: "#3B82F6" }} />
-                    <p style={{ color: "#D1D5DB" }}>{feature}</p>
+                    <FaCheck className="text-blue-500" />
+                    <p className="text-gray-600 dark:text-gray-400">{feature}</p>
                   </li>
                 ))}
               </ul>
@@ -114,10 +90,9 @@ const Pricing = ({
                 variant={index === 1 ? TIERS[0].buttonVariant : tier.buttonVariant}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
+                className="rounded-lg text-white"
                 style={{
-                  borderRadius: "8px", // Tombol melengkung
-                  backgroundColor: index === 1 ? undefined : tier.buttonColor,
-                  color: "white",
+                  backgroundColor: index === 1 ? TIERS[0].buttonColor : tier.buttonColor,
                 }}
               >
                 {tier.buttonText}
@@ -130,13 +105,14 @@ const Pricing = ({
 
       {/* Footer Section */}
       <div className="flex py-2">
-        <p className="text-gray-400 text-center">
+        <p className="text-gray-600 dark:text-gray-400 text-center">
           {locale.doYouLike} 
           <Link
             color="foreground"
             href={siteConfig.authors[0].twitter}
             underline="always"
             rel="noopener noreferrer nofollow"
+            className="text-blue-600 dark:text-blue-400"
           >
             {locale.follow}
           </Link>
