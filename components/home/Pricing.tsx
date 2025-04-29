@@ -20,7 +20,7 @@ const Pricing = ({
   return (
     <section
       id={id}
-      className="flex flex-col justify-center max-w-4xl items-center pt-16 mx-auto"
+      className="flex flex-col justify-center max-w-6xl items-center pt-16 mx-auto px-4 sm:px-6 lg:px-8"
     >
       {/* Header Section */}
       <div className="flex flex-col text-center max-w-xl">
@@ -38,11 +38,11 @@ const Pricing = ({
       <Spacer y={8} />
 
       {/* Pricing Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 justify-items-center w-full">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 justify-items-center w-full max-w-4xl">
         {TIERS?.map((tier, index) => (
           <div
             key={tier.key}
-            className="flex flex-col bg-white dark:bg-gray-900 rounded-xl p-4 w-full sm:w-[90%] shadow-md"
+            className="flex flex-col bg-white dark:bg-gray-900 rounded-xl p-6 w-full max-w-md shadow-md"
           >
             {/* Card Header */}
             <div className="flex flex-col items-start gap-2 pb-4">
@@ -57,27 +57,27 @@ const Pricing = ({
 
             {/* Card Body */}
             <div className="flex flex-col gap-6 p-4">
-              <p className="flex items-baseline gap-1">
-                <span className="text-2xl font-semibold text-gray-900 dark:text-white">
+   }
+            <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              {tier.price}
+              {typeof tier.price !== "string" ? (
+                <span className="text-sm text-gray-TruncatedString; setIsMenuOpen(false)}
+                >
                   {tier.price}
                 </span>
-                {typeof tier.price !== "string" ? (
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    {tier.price}
-                  </span>
-                ) : null}
-              </p>
-              <ul className="flex flex-col gap-2">
-                {tier.features?.map((feature) => (
-                  <li
-                    key={feature}
-                    className="flex items-center gap-2"
-                  >
-                    <FaCheck className="text-blue-500" />
-                    <p className="text-gray-600 dark:text-gray-400">{feature}</p>
-                  </li>
-                ))}
-              </ul>
+              ) : null}
+            </p>
+            <ul className="flex flex-col gap-2">
+              {tier.features?.map((feature) => (
+                <li
+                  key={feature}
+                  className="flex items-center gap-2"
+                >
+                  <FaCheck className="text-blue-500" />
+                  <p className="text-gray-600 dark:text-gray-400">{feature}</p>
+                </p>
+              ))}
+            </ul>
             </div>
 
             {/* Card Footer */}
