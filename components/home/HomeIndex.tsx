@@ -14,28 +14,18 @@ export default async function HomeIndex({ lang }: { lang: string }) {
 
   return (
     <>
-      {/* Hero Section */}
       <Hero locale={dict.Hero} langName={langName} CTALocale={dict.CTAButton} />
-
-      {/* Social Proof / Trusted by */}
       <SocialProof locale={dict.SocialProof} />
-
-      {/* Scrolling Logos / Tech Stack */}
       <ScrollingLogos />
 
-      {/* Unique Selling Proposition */}
-      <Feature locale={dict.Feature} langName={langName} />
+      {/* Feature section with id */}
+      <Feature id="Features" locale={dict.Feature} langName={langName} />
 
-      {/* Pricing Section */}
+      {/* Pricing section */}
       <Pricing locale={dict.Pricing} langName={langName} />
 
-      {/* Testimonials */}
       <Testimonials locale={dict.Testimonials} />
-
-      {/* FAQ */}
       <FAQ locale={dict.FAQ} langName={langName} />
-
-      {/* Final Call to Action */}
       <CTA locale={dict.CTA} CTALocale={dict.CTAButton} />
     </>
   );
