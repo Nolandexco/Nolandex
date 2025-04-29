@@ -1,9 +1,7 @@
 "use client";
 import HeaderLinks from "@/components/header/HeaderLinks";
-// import { LangSwitcher } from "@/components/header/LangSwitcher"; // Hapus impor
 import { siteConfig } from "@/config/site";
 import { MenuIcon } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -22,26 +20,20 @@ const Header = () => {
   const lang = params.lang;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <header className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <nav className="relative z-50 flex justify-between items-center">
+    <header className="fixed top-0 left-0 w-full bg-background shadow-md z-50 py-6 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav className="relative flex justify-between items-center">
         {/* Left section */}
         <div className="flex items-center md:gap-x-12 flex-1">
           <Link
             href="/"
-            aria-label="Landing Page Boilerplate"
-            title="Landing Page Boilerplate"
-            className="flex items-center space-x-1 font-bold"
+            aria-label="NolanDex"
+            title="NolanDex"
+            className="flex items-center space-x-1"
           >
-            <Image
-              alt="Logo"
-              src="/logo.svg"
-              className="w-8 h-8"
-              width={32}
-              height={32}
-            />
-            <span className="text-gray-950 dark:text-gray-300 hidden md:block">
-              {siteConfig.name}
+            <span className="text-2xl font-bold text-gray-950 dark:text-gray-300 hidden md:block font-['Poppins']">
+              NolanDex
             </span>
           </Link>
         </div>
@@ -54,7 +46,7 @@ const Header = () => {
                 href={`/${lang === "en" ? "" : lang}${link.href}`}
                 aria-label={link.label}
                 title={link.label}
-                className="tracking-wide transition-colors duration-200 font-normal"
+                className="tracking-wide transition-colors duration-200 font-normal hover:text-deep-purple-accent-400"
               >
                 {link.label}
               </Link>
@@ -66,7 +58,6 @@ const Header = () => {
         <div className="hidden md:flex items-center justify-end gap-x-6 flex-1">
           <HeaderLinks />
           <ThemedButton />
-          {/* <LangSwitcher /> Hapus language selector */}
         </div>
 
         {/* Mobile menu button */}
@@ -86,19 +77,12 @@ const Header = () => {
                   <div>
                     <Link
                       href="/"
-                      aria-label="Landing Page Boilerplate"
-                      title="Landing Page Boilerplate"
+                      aria-label="NolanDex"
+                      title="NolanDex"
                       className="inline-flex items-center"
                     >
-                      <Image
-                        alt={siteConfig.name}
-                        src="/logo.svg"
-                        className="w-8 h-8"
-                        width={32}
-                        height={32}
-                      />
-                      <span className="ml-2 text-xl font-bold tracking-wide text-gray-950 dark:text-gray-300">
-                        {siteConfig.name}
+                      <span className="ml-2 text-xl font-bold tracking-wide text-gray-950 dark:text-gray-300 font-['Poppins']">
+                        NolanDex
                       </span>
                     </Link>
                   </div>
@@ -135,12 +119,12 @@ const Header = () => {
                     <HeaderLinks />
                     <div className="flex items-center justify-end gap-x-5">
                       <ThemedButton />
-                      {/* <LangSwitcher /> Hapus language selector */}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+           div>
           )}
         </div>
       </nav>
