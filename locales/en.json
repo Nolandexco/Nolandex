@@ -1,47 +1,47 @@
 {
   "Hero": {
-    "title1": "Ship",
-    "title2": "Landing Page",
-    "title3": "Fast",
-    "description": "A free, open-source, and powerful landing page boilerplate, ideal for various projects, enabling you to create a landing page in under an hour."
+    "title1": "Launch",
+    "title2": "Your Online",
+    "title3": "Business Fast",
+    "description": "NolanDex helps you set up your website, design, automation, and social media — all done in a few hours, so you can start selling faster."
   },
   "SocialProof": {
-    "maker": "makers ship fast"
+    "maker": "Entrepreneurs launch smarter with NolanDex"
   },
   "Showcase": {
-    "title": "Showcase",
-    "description": "Join 1000+ Makers Boosting Conversions with Our Landing Page Boilerplate"
+    "title": "Success Stories",
+    "description": "Join 1000+ people who started their online business quickly with NolanDex"
   },
   "Feature": {
-    "title": "Features"
+    "title": "What You Get"
   },
   "Pricing": {
     "title": "Pricing",
-    "title2": "Get unlimited access.",
-    "description": "The page you are currently viewing is an open-source, free boilerplate.",
-    "doYouLike": "Do you like this landing page boilerplate?",
-    "follow": "Follow my Twitter."
+    "title2": "All-in-One Setup, One Simple Price",
+    "description": "Try the demo for free. Pay only if you're ready to launch your real business.",
+    "doYouLike": "Like our setup service?",
+    "follow": "Follow us on Instagram @nolandexco"
   },
   "Testimonials": {
-    "title": "Testimonials",
-    "description1": "If you use this landing page template and recommend it on your Twitter,",
-    "description2": "please let me know",
-    "description3": ". I will display your tweet and recommendation here."
+    "title": "What Our Users Say",
+    "description1": "If NolanDex helped you launch your business,",
+    "description2": "send us your story",
+    "description3": " — we’d love to share it here!"
   },
   "FAQ": {
-    "title": "FAQs",
-    "description": "Here are some of the most frequently asked questions."
+    "title": "Questions?",
+    "description": "Common questions people ask before launching with us."
   },
   "CTA": {
-    "title": "Build Your Landing Page Now",
-    "description1": "Build",
-    "description2": "your landing page,",
-    "description3": "show",
-    "description4": "your product, and",
-    "description5": "start earning",
+    "title": "Start Your Business Today",
+    "description1": "Let NolanDex build",
+    "description2": "your website, content, and system,",
+    "description3": "so you can",
+    "description4": "start selling and growing",
+    "description5": "right away",
     "description6": "!"
   },
   "CTAButton": {
-    "title": "Get Boilerplate"
+    "title": "Get Started"
   }
 }
