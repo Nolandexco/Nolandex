@@ -6,13 +6,11 @@ import { motion } from "framer-motion";
 const Feature = ({
   id,
   locale,
-  langName,
 }: {
   id: string;
   locale: { title: string };
-  langName: string;
 }) => {
-  const FEATURES = ALL_FEATURES[`FEATURES_${langName.toUpperCase()}`];
+  const FEATURES = ALL_FEATURES.FEATURES_EN;
 
   // Animation variants for cards
   const cardVariants = {
