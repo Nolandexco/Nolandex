@@ -40,27 +40,16 @@ const Header = () => {
       }`}
     >
       <nav className="mx-auto max-w-7xl flex justify-between items-center">
-        {/* Left section - NolanDex always visible */}
-        <div className="flex items-center gap-4">
+        {/* Left section - NolanDex */}
+        <div className="flex items-center">
           <Link href="/" aria-label="NolanDex" title="NolanDex" className="flex items-center">
             <span className="text-xl font-bold text-gray-900 dark:text-gray-300 font-poppins">
               NolanDex
             </span>
           </Link>
-          {/* Hamburger menu for mobile, visible in both modes */}
-          <div className="md:hidden">
-            <button
-              aria-label="Open Menu"
-              title="Open Menu"
-              className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-gray-100 dark:hover:bg-gray-700 focus:bg-gray-100 dark:focus:bg-gray-700"
-              onClick={() => setIsMenuOpen(true)}
-            >
-              <MenuIcon className="text-gray-900 dark:text-gray-300" />
-            </button>
-          </div>
         </div>
 
-        {/* Center section - Navigation */}
+        {/* Center section - Navigation (Desktop) */}
         <ul className="hidden md:flex items-center justify-center gap-6 flex-1">
           {links.map((link) => (
             <li key={link.label}>
@@ -76,10 +65,23 @@ const Header = () => {
           ))}
         </ul>
 
-        {/* Right section */}
+        {/* Right section - Desktop (HeaderLinks + ThemedButton) */}
         <div className="hidden md:flex items-center justify-end gap-x-6 flex-1">
           <HeaderLinks />
           <ThemedButton />
+        </div>
+
+        {/* Right section - Mobile (ThemedButton + Hamburger) */}
+        <div className="flex items-center gap-4 md:hidden">
+          <ThemedButton />
+          <button
+            aria-label="Open Menu"
+            title="Open Menu"
+            className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-gray-100 dark:hover:bg-gray-700 focus:bg-gray-100 dark:focus:bg-gray-700"
+            onClick={() => setIsMenuOpen(true)}
+          >
+            <MenuIcon className="text-gray-900 dark:text-gray-300" />
+          </button>
         </div>
 
         {/* Mobile menu */}
