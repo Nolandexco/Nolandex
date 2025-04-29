@@ -1,7 +1,7 @@
 import { SiteConfig } from "@/types/siteConfig";
-import { BsGithub, BsTwitterX, BsWechat } from "react-icons/bs";
+import { BsInstagram, BsTiktok, BsWechat } from "react-icons/bs"; // Replaced BsGithub, BsTwitterX
 import { MdEmail } from "react-icons/md";
-import { SiBuymeacoffee, SiJuejin } from "react-icons/si";
+import { SiJuejin } from "react-icons/si"; // Removed SiBuymeacoffee
 
 const OPEN_SOURCE_URL = 'https://github.com/weijunext/landing-page-boilerplate'
 
@@ -17,7 +17,7 @@ const baseSiteConfig = {
     {
       name: "weijunext",
       url: "https://weijunext.com",
-      twitter: 'https://twitter.com/weijunext',
+      twitter: 'https://www.tiktok.com/@nolandexco?_t=ZS-8vw3CSiXkAi&_r=1', // Updated to TikTok
     }
   ],
   creator: '@weijunext',
@@ -33,15 +33,15 @@ const baseSiteConfig = {
     apple: "/logo.png",
   },
   headerLinks: [
-    { name: 'repo', href: OPEN_SOURCE_URL, icon: BsGithub },
-    { name: 'twitter', href: "https://twitter.com/weijunext", icon: BsTwitterX },
-    { name: 'buyMeCoffee', href: "https://www.buymeacoffee.com/weijunext", icon: SiBuymeacoffee }
+    { name: 'repo', href: 'https://www.instagram.com/nolandexco?igsh=NHBqczF1a2dvbXA5', icon: BsInstagram }, // Changed to Instagram
+    { name: 'tiktok', href: "https://www.tiktok.com/@nolandexco?_t=ZS-8vw3CSiXkAi&_r=1", icon: BsTiktok }, // Changed to TikTok
+    { name: 'email', href: "mailto:nolandexco@gmail.com", icon: MdEmail }, // Changed to email
   ],
   footerLinks: [
-    { name: 'email', href: "mailto:weijunext@gmail.com", icon: MdEmail },
-    { name: 'twitter', href: "https://twitter.com/weijunext", icon: BsTwitterX },
-    { name: 'github', href: "https://github.com/weijunext/", icon: BsGithub },
-    { name: 'buyMeCoffee', href: "https://www.buymeacoffee.com/weijunext", icon: SiBuymeacoffee },
+    { name: 'email', href: "mailto:nolandexco@gmail.com", icon: MdEmail }, // Updated to new email
+    { name: 'tiktok', href: "https://www.tiktok.com/@nolandexco?_t=ZS-8vw3CSiXkAi&_r=1", icon: BsTiktok }, // Changed to TikTok
+    { name: 'instagram', href: "https://www.instagram.com/nolandexco?igsh=NHBqczF1a2dvbXA5", icon: BsInstagram }, // Changed to Instagram
+    { name: 'email', href: "mailto:nolandexco@gmail.com", icon: MdEmail }, // Changed to email
     { name: 'juejin', href: "https://juejin.cn/user/26044008768029", icon: SiJuejin },
     { name: 'weChat', href: "https://weijunext.com/make-a-friend", icon: BsWechat }
   ],
