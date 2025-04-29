@@ -18,13 +18,13 @@ const ScrollingLogos = () => {
     <section className="mx-auto w-full md:max-w-5xl lg:max-w-7xl px-0 md:px-6 lg:px-8 pt-16">
       <Marquee direction="left" autoFill pauseOnHover>
         {LOGOS.map((image, index) => (
-          <div className="mx-6 text-gray-500" key={index}>
+          <div className="mx-1 text-gray-500" key={index}>
             <Image
               src={image.image}
               alt={image.name}
-              style={{
-                objectFit: "contain", // Menggunakan "contain" agar proporsi logo tetap
-              }}
+              width={90}
+              height={90}
+              style={{ objectFit: "contain" }}
               className="transition-all duration-300 cursor-pointer text-gray-500"
             />
           </div>
