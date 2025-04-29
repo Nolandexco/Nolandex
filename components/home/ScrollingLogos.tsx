@@ -1,5 +1,4 @@
 "use client";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
@@ -15,7 +14,6 @@ const LOGOS = [
 ];
 
 const ScrollingLogos = () => {
-  const { theme } = useTheme();
   return (
     <section className="mx-auto w-full md:max-w-5xl lg:max-w-7xl px-0 md:px-6 lg:px-8 pt-16">
       <Marquee direction="left" autoFill pauseOnHover>
@@ -24,14 +22,10 @@ const ScrollingLogos = () => {
             <Image
               src={image.image}
               alt={image.name}
-              width={40} // Ukuran normal, lebih kecil dari 50 tetapi tidak terlalu kecil
-              height={40}
               style={{
                 objectFit: "contain", // Menggunakan "contain" agar proporsi logo tetap
               }}
-              className={`${
-                theme === "dark" ? "opacity-80" : "opacity-80"
-              } hover:opacity-100 transition-all duration-300 cursor-pointer text-gray-500`}
+              className="transition-all duration-300 cursor-pointer text-gray-500"
             />
           </div>
         ))}
