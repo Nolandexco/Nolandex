@@ -1,6 +1,6 @@
 import HomeIndex from "@/components/home/HomeIndex";
 
-export default function Page({
+export default async function Page({
   params,
 }: {
   params: { lang: string };
