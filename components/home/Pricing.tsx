@@ -1,3 +1,4 @@
+// components/home/Pricing.tsx
 "use client";
 
 import { Button, Divider, Link, Spacer } from "@nextui-org/react";
@@ -7,7 +8,6 @@ import { FaCheck } from "react-icons/fa";
 import { RoughNotation } from "react-rough-notation";
 
 interface PricingProps {
-  id: string;
   locale: {
     title: string;
     title2: string;
@@ -18,12 +18,12 @@ interface PricingProps {
   langName: string;
 }
 
-const Pricing = ({ id, locale, langName }: PricingProps) => {
+const Pricing = ({ locale, langName }: PricingProps) => {
   const TIERS = ALL_TIERS[`TIERS_${langName.toUpperCase()}`];
 
   return (
     <section
-      id={id}
+      id="pricing"
       className="flex flex-col justify-center max-w-6xl items-center pt-16 mx-auto px-4 sm:px-6 lg:px-8"
     >
       <div className="flex flex-col text-center max-w-xl">
