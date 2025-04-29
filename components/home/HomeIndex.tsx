@@ -6,10 +6,10 @@ import Pricing from "@/components/home/Pricing";
 import ScrollingLogos from "@/components/home/ScrollingLogos";
 import SocialProof from "@/components/home/SocialProof";
 import Testimonials from "@/components/home/Testimonials";
-import { defaultLocale, getDictionary } from "@/lib/i18n";
+import { getDictionary } from "@/lib/i18n";
 
 export default async function HomeIndex() {
-  const dict = await getDictionary(defaultLocale);
+  const dict = await getDictionary();
 
   return (
     <>
