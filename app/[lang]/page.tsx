@@ -1,6 +1,11 @@
-// app/[[lang]]/page.tsx
+// app/[lang]/page.tsx
+
 import HomeIndex from "@/components/home/HomeIndex";
 
-export default function Page({ params }: { params: { lang?: string } }) {
-  return <HomeIndex params={{ lang: params.lang ?? "en" }} />;
+interface PageProps {
+  params: { lang: string };
+}
+
+export default function Page({ params }: PageProps) {
+  return <HomeIndex params={params} />;
 }
