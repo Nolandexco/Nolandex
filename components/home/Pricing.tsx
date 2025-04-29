@@ -1,4 +1,3 @@
-// components/home/Pricing.tsx
 "use client";
 
 import { Button, Divider, Link, Spacer } from "@nextui-org/react";
