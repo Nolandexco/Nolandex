@@ -1,46 +1,62 @@
+// components/home/HomeIndex.tsx
+
 import dynamic from "next/dynamic";
-import Feature from "@/components/home/Feature";
-import FAQ from "@/components/home/FAQ";
 import { defaultLocale, getDictionary } from "@/lib/i18n";
 
-// Dynamic imports for Client Components
-const Hero = dynamic(() => import("@/components/home/Hero"), {
-  loading: () => <div>Loading Hero...</div>,
-});
-const Pricing = dynamic(() => import("@/components/home/Pricing"), {
-  loading: () => <div>Loading Pricing...</div>,
-});
-const CTA = dynamic(() => import("@/components/home/CTA"), {
-  loading: () => <div>Loading CTA...</div>,
-});
-const ScrollingLogos = dynamic(() => import("@/components/home/ScrollingLogos"), {
-  loading: () => <div>Loading Scrolling Logos...</div>,
-});
-const SocialProof = dynamic(() => import("@/components/home/SocialProof"), {
-  loading: () => <div>Loading Social Proof...</div>,
-});
-const Testimonials = dynamic(() => import("@/components/home/Testimonials"), {
-  loading: () => <div>Loading Testimonials...</div>,
-});
+// Static imports (assumed to be server components)
+import Feature from "@/components/home/Feature";
+import FAQ from "@/components/home/FAQ";
+
+// Dynamic imports (client components)
+const Hero = dynamic(() => import("@/components/home/Hero"), { ssr: false });
+const Pricing = dynamic(() => import("@/components/home/Pricing"), { ssr: false });
+const CTA = dynamic(() => import("@/components/home/CTA"), { ssr: false });
+const ScrollingLogos = dynamic(() => import("@/components/home/ScrollingLogos"), { ssr: false });
+const SocialProof = dynamic(() => import("@/components/home/SocialProof"), { ssr: false });
+const Testimonials = dynamic(() => import("@/components/home/Testimonials"), { ssr: false });
 
 interface HomeIndexProps {
   params: { lang: string };
 }
 
 export default async function HomeIndex({ params }: HomeIndexProps) {
-  const langName = params.lang || defaultLocale;
+  // Ensure valid locale
+  const langName = params?.lang || defaultLocale;
+
+  // Get translation dictionary
   const dict = await getDictionary(langName);
 
   return (
     <>
-      <Hero locale={dict.Hero} langName={langName} CTALocale={dict.CTAButton} />
-      <SocialProof locale={dict.SocialProof} />
+      <Hero
+        locale={dict?.Hero}
+        langName={langName}
+        CTALocale={dict?.CTAButton}
+      />
+      <SocialProof locale={dict?.SocialProof} />
       <ScrollingLogos />
-      <Feature id="Features" locale={dict.Feature} langName={langName} />
-      <Pricing locale={dict.Pricing} langName={langName} />
-      <Testimonials id="Testimonials" locale={dict.Testimonials} />
-      <FAQ id="FAQ" locale={dict.FAQ} langName={langName} />
-      <CTA locale={dict.CTA} CTALocale={dict.CTAButton} />
+      <Feature
+        id="Features"
+        locale={dict?.Feature}
+        langName={langName}
+      />
+      <Pricing
+        locale={dict?.Pricing}
+        langName={langName}
+      />
+      <Testimonials
+        id="Testimonials"
+        locale={dict?.Testimonials}
+      />
+      <FAQ
+        id="FAQ"
+        locale={dict?.FAQ}
+        langName={langName}
+      />
+      <CTA
+        locale={dict?.CTA}
+        CTALocale={dict?.CTAButton}
+      />
     </>
   );
 }
