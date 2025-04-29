@@ -23,7 +23,11 @@ const Testimonials = dynamic(() => import("@/components/home/Testimonials"), {
   loading: () => <div>Loading Testimonials...</div>,
 });
 
-export default async function HomeIndex({ params }: { params: { lang: string } }) {
+interface HomeIndexProps {
+  params: { lang: string };
+}
+
+export default async function HomeIndex({ params }: HomeIndexProps) {
   const langName = params.lang || defaultLocale;
   const dict = await getDictionary(langName);
 
