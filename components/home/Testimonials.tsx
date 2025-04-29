@@ -1,4 +1,5 @@
-/* eslint-disable react/no-unescaped-entities */
+"use client";
+
 import { TwitterX } from "@/components/social-icons/icons";
 import { siteConfig } from "@/config/site";
 import { TestimonialsData } from "@/config/testimonials";
