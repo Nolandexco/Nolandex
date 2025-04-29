@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useState, useEffect, useRef } from 'react';
 import { siteConfig } from "@/config/site";
 import { TestimonialsData } from "@/config/testimonials";
 import Image from "next/image";
 import Link from "next/link";
 import { RoughNotation } from "react-rough-notation";
-import { useEffect, useRef, useState } from "react";
 
 const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -29,12 +29,12 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => 
-        (prevIndex + 1) % Math.ceil(TestimonialsData.length / 2)
+        (prevIndex + 1) % Math.ceil(TestimonialsData.length / getVisibleCount())
       );
-    }, 5000); // Change slide every 5 seconds
+    }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [containerWidth]);
 
   const getVisibleCount = () => {
     if (containerWidth >= 1280) return 4;
@@ -42,11 +42,6 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
     if (containerWidth >= 640) return 2;
     return 1;
   };
-
-  const visibleTestimonials = TestimonialsData.slice(
-    currentIndex * getVisibleCount(),
-    (currentIndex + 1) * getVisibleCount()
-  );
 
   return (
     <section
@@ -113,7 +108,6 @@ const Testimonials = ({ id, locale }: { id: string; locale: any }) => {
           ))}
         </div>
         
-        {/* Navigation dots */}
         <div className="flex justify-center mt-6 gap-2">
           {Array.from({ length: Math.ceil(TestimonialsData.length / getVisibleCount()) }).map((_, i) => (
             <button
